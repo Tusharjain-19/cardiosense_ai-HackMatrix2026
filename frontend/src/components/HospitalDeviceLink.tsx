@@ -204,16 +204,20 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
       const height = canvas.height;
       const centerY = height / 2;
 
-      // Generate current value if in simulator mode
+      // Generate current value ONLY if real serial hardware is connected
       let val = 0;
-      if (connectionType === "simulator" || !isConnected) {
-        val = generateECGPoint(t, liveBpm);
-        signalBufferRef.current.push(val);
-        if (signalBufferRef.current.length > width) {
-          signalBufferRef.current.shift();
-        }
+      if (isConnected) {
+        // Real stream from serial buffer or active hardware feed
+        val = signalBufferRef.current[signalBufferRef.current.length - 1] || 0;
         if (isRecording) {
           capturedDataRef.current.push(val);
+        }
+      } else {
+        // Flatline / zero signal when no device is connected
+        val = 0;
+        signalBufferRef.current.push(0);
+        if (signalBufferRef.current.length > width) {
+          signalBufferRef.current.shift();
         }
       }
 
@@ -473,12 +477,21 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
         {/* Top Status Bar overlay on Canvas */}
         <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between bg-gradient-to-b from-slate-950/90 to-transparent z-10">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2 text-xs text-emerald-400 font-mono">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-              LIVE MONITOR STREAM (250Hz)
+            <div className="flex items-center gap-2 text-xs font-mono">
+              {isConnected ? (
+                <>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                  <span className="text-emerald-400">LIVE HARDWARE MONITOR STREAM (250Hz)</span>
+                </>
+              ) : (
+                <>
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                  <span className="text-red-400 font-bold">HARDWARE DISCONNECTED</span>
+                </>
+              )}
             </div>
             <div className="text-xs text-slate-400 font-mono">
-              STATUS: <span className="text-emerald-300 font-semibold">{liveStatus}</span>
+              STATUS: <span className={isConnected ? "text-emerald-300 font-semibold" : "text-slate-500 font-semibold"}>{isConnected ? liveStatus : "AWAITING SERIAL CONNECTION"}</span>
             </div>
           </div>
 
@@ -486,17 +499,38 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
             <div className="text-right">
               <div className="text-[10px] uppercase tracking-wider text-slate-400">Heart Rate</div>
               <div className="text-3xl font-black font-mono text-emerald-400 leading-none flex items-center gap-1">
-                {liveBpm} <span className="text-xs font-normal text-slate-400">BPM</span>
+                {isConnected ? liveBpm : "--"} <span className="text-xs font-normal text-slate-400">BPM</span>
               </div>
             </div>
             <div className="text-right border-l border-slate-800 pl-4">
               <div className="text-[10px] uppercase tracking-wider text-slate-400">Signal Quality</div>
               <div className="text-xl font-bold font-mono text-emerald-300">
-                {signalQuality}% <span className="text-xs font-normal text-slate-400">Good</span>
+                {isConnected ? `${signalQuality}%` : "0%"} <span className="text-xs font-normal text-slate-400">{isConnected ? "Good" : "No Signal"}</span>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Center overlay when disconnected */}
+        {!isConnected && (
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <Usb className="w-8 h-8" />
+            </div>
+            <div className="max-w-md">
+              <h3 className="text-lg font-extrabold text-white">No ECG Machine Connected</h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Connect your hardware ECG device (AD8232 / Arduino / Hospital Serial COM port) via USB/Serial to activate live streaming.
+              </p>
+            </div>
+            <button
+              onClick={handleConnectWebSerial}
+              className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-950 transition-all"
+            >
+              <Usb className="w-4 h-4" /> Connect USB / Serial ECG Device
+            </button>
+          </div>
+        )}
 
         {/* Canvas Display */}
         <canvas
