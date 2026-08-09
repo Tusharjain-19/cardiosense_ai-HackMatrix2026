@@ -129,7 +129,7 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
           <button
             onClick={() => setExportFormat("csv")}
             className={`flex-1 py-1.5 rounded-lg font-bold transition-all ${
-              exportFormat === "csv" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400"
+              exportFormat === "csv" ? "bg-[#00605b] text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
             }`}
           >
             CSV Format
@@ -137,7 +137,7 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
           <button
             onClick={() => setExportFormat("json")}
             className={`flex-1 py-1.5 rounded-lg font-bold transition-all ${
-              exportFormat === "json" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400"
+              exportFormat === "json" ? "bg-[#00605b] text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
             }`}
           >
             JSON Format
@@ -147,11 +147,11 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
 
       <button
         onClick={handleExport}
-        className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-950 transition-all"
+        className="w-full py-3 bg-[#00605b] hover:bg-[#147a74] text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md shadow-teal-950/20 transition-all"
       >
         {isExported ? (
           <>
-            <Check className="w-4 h-4 text-emerald-400" /> Clinical Dataset Downloaded!
+            <Check className="w-4 h-4 text-emerald-300" /> Clinical Dataset Downloaded!
           </>
         ) : (
           <>

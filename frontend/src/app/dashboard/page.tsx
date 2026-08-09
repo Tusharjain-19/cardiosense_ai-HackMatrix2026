@@ -146,44 +146,44 @@ function DashboardContent() {
               onClick={() => setActiveMode('standard')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'standard'
-                  ? 'bg-white text-slate-900 shadow-md border border-slate-200'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#00605b] text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
-              <Activity className="w-4 h-4 text-blue-600" />
+              <Activity className="w-4 h-4 text-emerald-300" />
               Standard Overview
             </button>
             <button
               onClick={() => setActiveMode('hospital')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'hospital'
-                  ? 'bg-slate-900 text-emerald-400 shadow-md border border-emerald-500/40'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-emerald-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
-              <Zap className="w-4 h-4 text-emerald-500 animate-pulse" />
+              <Zap className="w-4 h-4 text-emerald-300 animate-pulse" />
               Hospital Device Link (Web Serial / Oscilloscope)
             </button>
             <button
               onClick={() => setActiveMode('webcam')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'webcam'
-                  ? 'bg-slate-900 text-sky-400 shadow-md border border-sky-500/40'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-sky-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
-              <Sparkles className="w-4 h-4 text-sky-400" />
+              <Sparkles className="w-4 h-4 text-sky-200" />
               Webcam rPPG Pulse Scanner
             </button>
             <button
               onClick={() => setActiveMode('exporter')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'exporter'
-                  ? 'bg-slate-900 text-indigo-400 shadow-md border border-indigo-500/40'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-indigo-700 text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
-              <FileCheck2 className="w-4 h-4 text-indigo-400" />
+              <FileCheck2 className="w-4 h-4 text-indigo-200" />
               Clinical Trial Exporter
             </button>
           </div>

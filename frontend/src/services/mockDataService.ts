@@ -109,41 +109,8 @@ export const MOCK_USERS: User[] = [
 // Default Initial Mock Analyses (Empty by default - real user data only)
 export const INITIAL_MOCK_ANALYSES: Analysis[] = []
 
-// Mock Patients for Doctor Dashboard
-export const MOCK_DOCTOR_PATIENTS = [
-  {
-    id: 'patient_001',
-    name: 'Rajesh Sharma (P001)',
-    age: 45,
-    gender: 'Male',
-    latestAnalysis: INITIAL_MOCK_ANALYSES[0],
-    totalAnalyses: 5,
-  },
-  {
-    id: 'patient_002',
-    name: 'Priya Patel (P002)',
-    age: 62,
-    gender: 'Female',
-    latestAnalysis: INITIAL_MOCK_ANALYSES[2],
-    totalAnalyses: 8,
-  },
-  {
-    id: 'patient_003',
-    name: 'Vikram Singh (P003)',
-    age: 54,
-    gender: 'Male',
-    latestAnalysis: INITIAL_MOCK_ANALYSES[1],
-    totalAnalyses: 3,
-  },
-  {
-    id: 'patient_004',
-    name: 'Sunita Rao (P004)',
-    age: 29,
-    gender: 'Female',
-    latestAnalysis: INITIAL_MOCK_ANALYSES[4],
-    totalAnalyses: 2,
-  },
-]
+// Mock Patients for Doctor Dashboard (Empty by default - real uploaded patients only)
+export const MOCK_DOCTOR_PATIENTS: any[] = []
 
 // Pre-loaded Sample Signals for Quick Upload Testing
 export interface PreloadedSample {
@@ -232,16 +199,19 @@ const STORAGE_KEY_ANALYSES = 'cardioai_analyses'
 const STORAGE_KEY_REVIEWS = 'cardioai_reviews'
 
 export function getStoredAnalyses(): Analysis[] {
-  if (typeof window === 'undefined') return INITIAL_MOCK_ANALYSES
+  if (typeof window === 'undefined') return []
   const stored = localStorage.getItem(STORAGE_KEY_ANALYSES)
   if (!stored) {
-    localStorage.setItem(STORAGE_KEY_ANALYSES, JSON.stringify(INITIAL_MOCK_ANALYSES))
-    return INITIAL_MOCK_ANALYSES
+    localStorage.setItem(STORAGE_KEY_ANALYSES, JSON.stringify([]))
+    return []
   }
   try {
-    return JSON.parse(stored)
+    const list: Analysis[] = JSON.parse(stored)
+    // Filter out old legacy dummy items
+    const filtered = list.filter((a) => !a.id.startsWith('analysis_00'))
+    return filtered
   } catch {
-    return INITIAL_MOCK_ANALYSES
+    return []
   }
 }
 

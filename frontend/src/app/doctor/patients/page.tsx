@@ -3,15 +3,26 @@
 import React, { useState } from 'react'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import Link from 'next/link'
-import { MOCK_DOCTOR_PATIENTS } from '@/services/mockDataService'
+import { getStoredAnalyses } from '@/services/mockDataService'
 import { Stethoscope, User, AlertTriangle, Eye, CheckCircle2, Search, Sparkles } from 'lucide-react'
 
 export default function DoctorPatientsPage() {
   const [filter, setFilter] = useState<'ALL' | 'NORMAL' | 'REVIEW' | 'POOR'>('ALL')
   const [searchTerm, setSearchTerm] = useState('')
 
+  // Build patient list from real user uploads
+  const storedAnalyses = getStoredAnalyses()
+  const realPatients = storedAnalyses.map((a, idx) => ({
+    id: a.id,
+    name: `${a.patientName || 'Patient'} (${a.patientId || `P00${idx + 1}`})`,
+    age: a.patientAge || 45,
+    gender: a.patientGender || 'Male',
+    latestAnalysis: a,
+    totalAnalyses: 1,
+  }))
+
   const getFilteredPatients = () => {
-    return MOCK_DOCTOR_PATIENTS.filter((p) => {
+    return realPatients.filter((p) => {
       const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase())
       if (!matchSearch) return false
 
@@ -74,7 +85,7 @@ export default function DoctorPatientsPage() {
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                All Patients ({MOCK_DOCTOR_PATIENTS.length})
+                All Patients ({realPatients.length})
               </button>
               <button
                 onClick={() => setFilter('REVIEW')}
