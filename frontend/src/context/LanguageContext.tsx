@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
-export type Language = 'en' | 'hi' | 'ta' | 'te' | 'gu' | 'mr' | 'bn'
+export type Language = 'en' | 'hi' | 'ta' | 'te' | 'gu' | 'mr' | 'bn' | 'kn'
 
 export interface LanguageOption {
   code: Language
@@ -18,6 +18,7 @@ export const LANGUAGES: LanguageOption[] = [
   { code: 'gu', label: 'Gujarati', nativeName: 'ગુજરાતી' },
   { code: 'mr', label: 'Marathi', nativeName: 'मराठी' },
   { code: 'bn', label: 'Bengali', nativeName: 'বাংলা' },
+  { code: 'kn', label: 'Kannada', nativeName: 'ಕನ್ನಡ' },
 ]
 
 export const TRANSLATIONS: Record<Language, Record<string, string>> = {
@@ -209,6 +210,33 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     filterType: 'ফিল্টার প্রকার',
     sortBy: 'সাজান',
     recentAnalyses: 'সাম্প্রতিক বিশ্লেষণ',
+  },
+  kn: {
+    brandName: 'ಕಾರ್ಡಿಯೋಸೆನ್ಸ್ AI',
+    dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+    newAnalysis: 'ಹೊಸ ವಿಶ್ಲೇಷಣೆ',
+    history: 'ಇತಿಹಾಸ',
+    doctorPortal: 'ವೈದ್ಯರ ಪೋರ್ಟಲ್',
+    adminPanel: 'ಅಡ್ಮಿನ್ ಪ್ಯಾನೆಲ್',
+    logout: 'ಲಾಗ್‌ಔಟ್',
+    welcomeBack: 'ಸ್ವಾಗತ',
+    patientMode: 'ರೋಗಿ ಮೋಡ್',
+    doctorMode: 'ವೈದ್ಯರ ಮೋಡ್',
+    adminMode: 'ಅಡ್ಮಿನ್ ಮೋಡ್',
+    uploadNewSignal: 'ಹೊಸ ಸಿಗ್ನಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ',
+    historyTrends: 'ಇತಿಹಾಸ ಮತ್ತು ಪ್ರವೃತ್ತಿಗಳು',
+    screeningReports: 'ಸ್ಕ್ರೀನಿಂಗ್ ವರದಿಗಳು',
+    signalType: 'ಸಿಗ್ನಲ್ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+    chooseFile: 'ಸಿಗ್ನಲ್ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ',
+    analyzeNow: 'ಈಗ ವಿಶ್ಲೇಷಿಸಿ',
+    signalQuality: 'ಸಿಗ್ನಲ್ ಗುಣಮಟ್ಟದ ಸ್ಕೋರ್',
+    heartRate: 'ಹೃದಯ ಬಡಿತ ವಿಶ್ಲೇಷಣೆ',
+    aiPrediction: 'AI ಮಾಡೆಲ್ ಮುನ್ನೋಟ',
+    downloadPdf: 'PDF ವರದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
+    dateAndTime: 'ದಿನಾಂಕ ಮತ್ತು ಸಮಯ',
+    filterType: 'ಫಿಲ್ಟರ್ ಪ್ರಕಾರ',
+    sortBy: 'ವಿಂಗಡಿಸಿ',
+    recentAnalyses: 'ಇತ್ತೀಚಿನ ವಿಶ್ಲೇಷಣೆಗಳು',
   },
 }
 

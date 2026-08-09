@@ -1,7 +1,7 @@
 import { Analysis, User } from '@/types'
 import jsPDF from 'jspdf'
 
-export type ReportLanguage = 'en' | 'hi' | 'ta' | 'te' | 'gu' | 'mr' | 'bn'
+export type ReportLanguage = 'en' | 'hi' | 'ta' | 'te' | 'gu' | 'mr' | 'bn' | 'kn'
 
 export const PDF_TRANSLATIONS: Record<ReportLanguage, Record<string, string>> = {
   en: {
@@ -311,6 +311,50 @@ export const PDF_TRANSLATIONS: Record<ReportLanguage, Record<string, string>> = 
     recAbnormalItem4: '4. রিপোর্ট শেয়ারিং: এই স্ক্রিনিং রিপোর্টটি ডাক্তারের সাথে ভাগ করুন।',
     disclaimerTitle: 'গুরুত্বপূর্ণ চিকিৎসা সংক্রান্ত সতর্কবার্তা',
     disclaimerBody: 'এই রিপোর্টটি শুধুমাত্র স্ক্রিনিং এর উদ্দেশ্যে তৈরি করা হয়েছে। এটি কোন প্রাতিষ্ঠানিক চিকিৎসা নির্ণয় নয়।',
+  },
+  kn: {
+    reportTitle: 'ಕಾರ್ಡಿಯೋಸೆನ್ಸ್ AI',
+    subTitle: 'ಕ್ಲಿನಿಕಲ್ ಕಾರ್ಡಿಯಾಕ್ ಸಿಗ್ನಲ್ ಸ್ಕ್ರೀನಿಂಗ್ ವರದಿ',
+    patientSection: '1. ರೋಗಿ ಮತ್ತು ರೆಕಾರ್ಡಿಂಗ್ ಮಾಹಿತಿ',
+    patientName: 'ರೋಗಿಯ ಹೆಸರು:',
+    ageGender: 'ವಯಸ್ಸು / ಲಿಂಗ:',
+    fileName: 'ರೆಕಾರ್ಡಿಂಗ್ ಫೈಲ್:',
+    fileType: 'ಸಿಗ್ನಲ್ ಪ್ರಕಾರ:',
+    processedAt: 'ವರದಿ ದಿನಾಂಕ:',
+    metricsSection: '2. ಹೃದಯ ಬಡಿತ ಮತ್ತು ಸಿಗ್ನಲ್ ನಿಯತಾಂಕಗಳು',
+    qualityScore: 'ಸಿಗ್ನಲ್ ಗುಣಮಟ್ಟದ ಸ್ಕೋರ್:',
+    noiseLevel: 'ಶಬ್ದದ ಮಟ್ಟ:',
+    baselineStability: 'ಬೇಸ್‌ಲೈನ್ ಸ್ಥಿರತೆ:',
+    heartRateAvg: 'ಸರಾಸರಿ ಹೃದಯ ಬಡಿತ:',
+    hrRange: 'ಕನಿಷ್ಠ / ಗರಿಷ್ಠ ಹೃದಯ ಬಡಿತ:',
+    hrVariability: 'ಹೃದಯ ಬಡಿತದ ವ್ಯತ್ಯಾಸ:',
+    prInterval: 'ಅಂದಾಜು PR ಅವಧಿ:',
+    qrsDuration: 'ಅಂದಾಜು QRS ಅವಧಿ:',
+    qtcInterval: 'ಅಂದಾಜು QTc ಅವಧಿ:',
+    aiSection: '3. AI ಡೀಪ್ ಲರ್ನಿಂಗ್ ವರ್ಗೀಕರಣ ಫಲಿತಾಂಶ',
+    classificationLabel: 'AI ಪ್ರಾಥಮικ ವರ್ಗೀಕರಣ:',
+    confidenceLabel: 'ಮಾಡೆಲ್ ವಿಶ್ವಾಸಾರ್ಹತೆ ಸ್ಕೋರ್:',
+    probabilityTitle: 'ಸಂಭಾವ್ಯತೆಯ ಹಂಚಿಕೆ ವಿವರಣೆ:',
+    graphSection: '4. ಸಿಗ್ನಲ್ ಗ್ರಾಫ್ (ECG ಗ್ರಿಡ್ ಪೇಪರ್)',
+    explainableSection: '5. ಎಕ್ಸ್‌ಪ್ಲೇನೇಬಲ್ AI (XAI) ಗಮನ ವಿಶ್ಲೇಷಣೆ',
+    focusSegment: 'ಗಮನ ಅವಧಿ ಸಮಯ:',
+    focusDescription: 'ಮಾಡೆಲ್ ವೀಕ್ಷಣೆ:',
+    riskSection: '6. ಕ್ಲಿನಿಕಲ್ ಅಪಾಯದ ಮೌಲ್ಯಮಾಪನ',
+    riskLevel: 'ಅಪಾಯದ ಮಟ್ಟ:',
+    doctorSection: '7. ವೈದ್ಯರ ಕ್ಲಿನಿಕಲ್ ಪರಿಶೀಲನೆ',
+    reviewedBy: 'ಪರಿಶೀಲಿಸಿದ ವೈದ್ಯರು:',
+    clinicalAssessment: 'ಕ್ಲಿನಿಕಲ್ ಮೌಲ್ಯಮಾಪನ:',
+    clinicalNotes: 'ವೈದ್ಯರ ಟಿಪ್ಪಣಿಗಳು:',
+    recommendationsSection: '8. ಕ್ಲಿನಿಕಲ್ ಕ್ರಿಯಾ ಯೋಜನೆ ಮತ್ತು ಶಿಫಾರಸುಗಳು (ಏನು ಮಾಡಬೇಕು)',
+    recNormalItem1: '1. ನಿಯಮಿತ ತಪಾಸಣೆ: ನಿಯಮಿತ ವಾರ್ಷಿಕ ಹೃದಯ ಆರೋಗ್ಯ ತಪಾಸಣೆಯನ್ನು ಮುಂದುವರಿಸಿ.',
+    recNormalItem2: '2. ಜೀವನಶೈಲಿ ನಿರ್ವಹಣೆ: ಸಮತೋಲಿತ ಆಹಾರ, ನಿಯಮಿತ ವ್ಯಾಯಾಮ ಮತ್ತು ಮಾನಸಿಕ ಶಾಂತಿಯನ್ನು ಕಾಯ್ದುಕೊಳ್ಳಿ.',
+    recNormalItem3: '3. ವೈದ್ಯರ ಸಲಹೆ: ಮುಂದಿನ ತಪಾಸಣೆಯಲ್ಲಿ ವೈದ್ಯರೊಂದಿಗೆ ಈ ಫಲಿತಾಂಶಗಳನ್ನು ಚರ್ಚಿಸಿ.',
+    recAbnormalItem1: '1. ತಜ್ಞರ ಸಲಹೆ: 12-ಲೀಡ್ ECG ಪರೀಕ್ಷೆಗಾಗಿ ಅರ್ಹ ಹೃದ್ರೋಗ ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಿ.',
+    recAbnormalItem2: '2. ರೋಗಲಕ್ಷಣಗಳ ಟ್ರ್ಯಾಕಿಂಗ್: ತಲೆತಿರುಗುವಿಕೆ, ಎದೆಬಡಿತ ಅಥವಾ ಉಸಿರಾಟದ ತೊಂದರೆಯನ್ನು ಗಮನಿಸಿ.',
+    recAbnormalItem3: '3. ತುರ್ತು ಎಚ್ಚರಿಕೆ: ತೀವ್ರ ಎದೆನೋವು ಉಂಟಾದರೆ ತಕ್ಷಣವೇ ತುರ್ತು ವೈದ್ಯಕೀಯ ನೆರವು ಪಡೆಯಿರಿ.',
+    recAbnormalItem4: '4. ವರದಿ ಹಂಚಿಕೆ: ಈ ಸ್ಕ್ರೀನಿಂಗ್ ವರದಿಯನ್ನು ನಿಮ್ಮ ವೈದ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.',
+    disclaimerTitle: 'ಪ್ರಮುಖ ವೈದ್ಯಕೀಯ ಹಕ್ಕುತ್ಯಾಗ',
+    disclaimerBody: 'ಈ ವರದಿಯನ್ನು ಕಾರ್ಡಿಯೋಸೆನ್ಸ್ AI ಸ್ಕ್ರೀನಿಂಗ್ ಉದ್ದೇಶಗಳಿಗಾಗಿ ಮಾತ್ರ ಸಿದ್ಧಪಡಿಸಲಾಗಿದೆ. ಇದು ಅಧಿಕೃತ ವೈದ್ಯಕೀಯ ರೋಗನಿರ್ಣಯವಲ್ಲ.',
   },
 }
 
