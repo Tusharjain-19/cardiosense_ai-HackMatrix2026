@@ -288,6 +288,15 @@ export default function Navigation() {
                     <span className="text-[11px] text-slate-500">{user.email}</span>
                   </div>
 
+                  <Link
+                    href="/history"
+                    onClick={() => setUserDropdownOpen(false)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-[#00605b] hover:bg-teal-50 flex items-center gap-2 border-b border-slate-100"
+                  >
+                    <History className="w-4 h-4 text-[#00605b]" />
+                    <span>Screening Records History</span>
+                  </Link>
+
                   <button
                     onClick={() => {
                       setIsSettingsOpen(true)

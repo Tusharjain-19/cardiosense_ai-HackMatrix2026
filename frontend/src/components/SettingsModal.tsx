@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { useAuthStore } from '@/context/authContext'
 import { useLanguage, LANGUAGES, Language } from '@/context/LanguageContext'
-import { Settings, X, Save, User, Sliders, Bell, ShieldCheck, CheckCircle2 } from 'lucide-react'
+import { Settings, X, Save, User, Sliders, Bell, ShieldCheck, CheckCircle2, History, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 import toast from 'react-hot-toast'
 
 import { createPortal } from 'react-dom'
@@ -399,6 +400,27 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     className="w-4 h-4 text-teal-600 rounded focus:ring-teal-500"
                   />
                 </label>
+
+                {/* Direct History Shortcut Button in Settings */}
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#00605b] text-white flex items-center justify-center font-bold">
+                      <History className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900">Screening & Analysis History Records</h4>
+                      <p className="text-[11px] text-slate-600">Access full history table, filtering, and PhysioNet export</p>
+                    </div>
+                  </div>
+                  <Link
+                    href="/history"
+                    onClick={onClose}
+                    className="px-4 py-2 bg-[#00605b] hover:bg-[#147a74] text-white text-xs font-extrabold rounded-xl shadow-sm flex items-center gap-1.5 whitespace-nowrap transition-all"
+                  >
+                    <span>Open History</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
           )}
