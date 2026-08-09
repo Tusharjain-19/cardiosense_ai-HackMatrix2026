@@ -129,7 +129,14 @@ function DashboardContent() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-3 shrink-0 flex-wrap">
+                <Link
+                  href="/history"
+                  className="px-5 py-3 rounded-xl bg-white text-[#00605b] border border-teal-200 hover:bg-teal-50 font-bold text-xs flex items-center gap-2 shadow-sm transition-all"
+                >
+                  <History className="w-4 h-4 text-[#00605b]" />
+                  <span>View History Records</span>
+                </Link>
                 <Link
                   href="/upload"
                   className="btn-primary"

@@ -111,14 +111,14 @@ export default function Navigation() {
 
                   <Link
                     href="/history"
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       isActive('/history')
-                        ? 'bg-teal-50 text-teal-900 border border-teal-200 shadow-sm'
-                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                        ? 'bg-[#00605b] text-white shadow-md'
+                        : 'bg-teal-50 text-[#00605b] hover:bg-teal-100 border border-teal-200 shadow-sm'
                     }`}
                   >
-                    <History className="w-4 h-4 text-teal-600 shrink-0" />
-                    {t('history')}
+                    <History className="w-4 h-4 shrink-0 text-[#00605b] group-hover:text-white" />
+                    <span>{t('history')}</span>
                   </Link>
                 </>
               )}
@@ -152,14 +152,14 @@ export default function Navigation() {
 
                   <Link
                     href="/history"
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       isActive('/history')
-                        ? 'bg-teal-50 text-teal-950 border border-teal-300 shadow-sm'
-                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                        ? 'bg-[#00605b] text-white shadow-md'
+                        : 'bg-teal-50 text-[#00605b] hover:bg-teal-100 border border-teal-200 shadow-sm'
                     }`}
                   >
-                    <History className="w-4 h-4 text-teal-700 shrink-0" />
-                    {t('history')}
+                    <History className="w-4 h-4 shrink-0" />
+                    <span>{t('history')}</span>
                   </Link>
                 </>
               )}
