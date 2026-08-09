@@ -1,7 +1,24 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Camera, RefreshCw, CheckCircle2, Play, Square, Activity, AlertCircle } from "lucide-react";
+import {
+  Camera,
+  RefreshCw,
+  CheckCircle2,
+  Play,
+  Square,
+  Activity,
+  AlertCircle,
+  Fingerprint,
+  Info,
+  HelpCircle,
+  Heart,
+  Sparkles,
+  ShieldCheck,
+  ScanLine,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { apiService } from "@/services/apiService";
 import { saveAnalysis } from "@/services/mockDataService";
@@ -23,6 +40,7 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
   const [scanSeconds, setScanSeconds] = useState<number>(0);
   const [estimatedBpm, setEstimatedBpm] = useState<number | null>(null);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [showTutorial, setShowTutorial] = useState<boolean>(true);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
   const ppgBufferRef = useRef<number[]>([]);
@@ -271,6 +289,57 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
         </div>
       </div>
 
+      {/* Tutorial & Guidance Section */}
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+        <div
+          onClick={() => setShowTutorial(!showTutorial)}
+          className="flex items-center justify-between cursor-pointer select-none"
+        >
+          <div className="flex items-center gap-2 text-xs font-bold text-[#00605b]">
+            <HelpCircle className="w-4 h-4 text-[#00605b]" />
+            <span>How Webcam rPPG Pulse Scanning Works & Placement Tutorial</span>
+          </div>
+          <button className="text-slate-500 hover:text-slate-800 text-xs font-semibold flex items-center gap-1">
+            {showTutorial ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            {showTutorial ? "Hide Tutorial" : "View Tutorial"}
+          </button>
+        </div>
+
+        {showTutorial && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-200">
+            <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1.5 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                <span className="w-5 h-5 rounded-full bg-emerald-100 text-[#00605b] text-[10px] flex items-center justify-center font-black">1</span>
+                <span>Fingertip / Face Alignment</span>
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Gently place your index finger over your camera lens OR align your face in bright, steady indoor lighting.
+              </p>
+            </div>
+
+            <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1.5 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                <span className="w-5 h-5 rounded-full bg-emerald-100 text-[#00605b] text-[10px] flex items-center justify-center font-black">2</span>
+                <span>Center in Target Circle</span>
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Align your finger/face inside the glowing animated target reticle. Hold completely still during the scan.
+              </p>
+            </div>
+
+            <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1.5 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                <span className="w-5 h-5 rounded-full bg-emerald-100 text-[#00605b] text-[10px] flex items-center justify-center font-black">3</span>
+                <span>10s Optical Waveform AI</span>
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                The optical sensor detects green-channel dermal blood density changes to compute pulse rhythm & AI prediction.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
       {cameraError && (
         <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-center gap-2 font-semibold">
           <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-600" />
@@ -291,15 +360,39 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
           <canvas ref={canvasRef} width={160} height={120} className="hidden" />
 
           {!isCameraActive && (
-            <div className="text-center p-6 text-slate-600 space-y-2">
-              <Camera className="w-10 h-10 mx-auto text-slate-400" />
-              <p className="text-xs font-medium">Click "Enable Camera" and cover camera with fingertip or align face.</p>
+            <div className="text-center p-6 text-slate-600 space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[#00605b]">
+                <Camera className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-sm font-bold text-slate-800">Camera Feed Inactive</h4>
+                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                  Click <strong>"Enable Camera"</strong> above to launch the optical pulse scanner.
+                </p>
+              </div>
             </div>
           )}
 
           {isCameraActive && (
-            <div className="absolute inset-0 border-2 border-sky-500/30 rounded-xl pointer-events-none flex items-center justify-center">
-              <div className="w-32 h-32 rounded-full border-2 border-dashed border-sky-600/60 animate-spin" />
+            <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center space-y-2">
+              {/* Outer pulsing aura ring */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-36 h-36 rounded-full bg-emerald-500/20 animate-ping opacity-75" />
+                <div className="w-32 h-32 rounded-full border-4 border-dashed border-[#00605b] animate-[spin_10s_linear_infinite] flex items-center justify-center shadow-lg" />
+                
+                {/* Center Heartbeat Icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-emerald-300 flex items-center justify-center shadow-md animate-pulse">
+                    <Heart className="w-6 h-6 text-[#00605b] fill-[#00605b]/20" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Target Reticle Status Badge */}
+              <div className="px-3 py-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-full text-[10px] font-mono font-bold text-[#00605b] shadow-md flex items-center gap-1.5">
+                <ScanLine className="w-3 h-3 animate-spin text-[#00605b]" />
+                <span>ALIGN FINGERTIP / FACE HERE</span>
+              </div>
             </div>
           )}
         </div>
