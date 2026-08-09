@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
+import toast from 'react-hot-toast'
 import {
   ResponsiveContainer,
   LineChart,
@@ -65,7 +66,7 @@ export default function WaveformChart({
       setIsSpeaking(true)
       window.speechSynthesis.speak(utterance)
     } else {
-      alert('Speech synthesis is not supported in this browser.')
+      toast.error('Speech synthesis is not supported in this browser.')
     }
   }
 

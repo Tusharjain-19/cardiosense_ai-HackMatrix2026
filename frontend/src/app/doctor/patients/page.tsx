@@ -5,6 +5,7 @@ import ProtectedRoute from '@/components/ProtectedRoute'
 import Link from 'next/link'
 import { getStoredAnalyses } from '@/services/mockDataService'
 import { Stethoscope, User, AlertTriangle, Eye, CheckCircle2, Search, Sparkles } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 export default function DoctorPatientsPage() {
   const [filter, setFilter] = useState<'ALL' | 'NORMAL' | 'REVIEW' | 'POOR'>('ALL')
@@ -192,7 +193,7 @@ export default function DoctorPatientsPage() {
                     <td className="px-4 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
-                          onClick={() => alert(`AI Prediction for ${p.name} APPROVED and signed by Doctor.`)}
+                          onClick={() => toast.success(`AI Prediction for ${p.name} APPROVED and signed by Doctor.`)}
                           className="px-2.5 py-1.5 bg-emerald-100 text-emerald-900 hover:bg-emerald-200 rounded-xl text-xs font-bold border border-emerald-300 flex items-center gap-1 transition-colors"
                           title="1-Click Doctor Approval"
                         >

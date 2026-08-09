@@ -19,6 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { apiService } from "@/services/apiService";
 import { saveAnalysis } from "@/services/mockDataService";
+import toast from "react-hot-toast";
 
 interface HospitalDeviceLinkProps {
   onCaptureComplete?: (analysisData: any) => void;
@@ -125,7 +126,7 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
   // Connect Web Serial API
   const handleConnectWebSerial = async () => {
     if (!("serial" in navigator)) {
-      alert("Web Serial API is not supported on this browser. Please use Chrome or Edge, or switch to Hospital Stream Simulator mode.");
+      toast.error("Web Serial API is not supported on this browser. Please use Chrome or Edge, or switch to Hospital Stream Simulator mode.", { duration: 5000 });
       return;
     }
     try {
@@ -134,6 +135,7 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
       serialPortRef.current = port;
       setIsConnected(true);
       setSerialDeviceName("Connected Device (COM)");
+      toast.success("Hospital Serial ECG Device Connected Successfully!", { icon: "🔌" });
 
       // Read loop
       const decoder = new TextDecoderStream();
@@ -145,7 +147,11 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
       readSerialData(reader);
     } catch (err: any) {
       console.error("Serial connection failed:", err);
-      alert(`Serial Port Connection Error: ${err?.message || err}`);
+      if (err?.name === 'NotFoundError' || err?.message?.includes('No port selected')) {
+        toast.error("Serial connection cancelled. No port selected by user.", { icon: "🔌" });
+      } else {
+        toast.error(`Serial Port Connection Error: ${err?.message || err}`);
+      }
     }
   };
 
@@ -384,7 +390,7 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
     } catch (err) {
       console.error("Recording submit error:", err);
       setIsAnalyzing(false);
-      alert("Analysis processing error.");
+      toast.error("Failed to process hospital signal analysis.");
     }
   };
 
