@@ -38,14 +38,14 @@ export default function ReportDownloadModal({
   const handleDownload = async () => {
     try {
       setIsGenerating(true)
-      // Small delay to ensure the template is fully rendered
-      await new Promise(r => setTimeout(r, 250))
+      await new Promise(r => setTimeout(r, 350))
       
-      const element = document.getElementById('pdf-report-template')
-      if (!element) throw new Error('Report template not found')
+      const page1El = document.getElementById('pdf-page-1')
+      const page2El = document.getElementById('pdf-page-2')
+      if (!page1El || !page2El) throw new Error('Report template pages not found')
 
-      const canvas = await html2canvas(element, { scale: 2, useCORS: true })
-      const imgData = canvas.toDataURL('image/png')
+      const canvas1 = await html2canvas(page1El, { scale: 2, useCORS: true, logging: false })
+      const canvas2 = await html2canvas(page2El, { scale: 2, useCORS: true, logging: false })
 
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -53,22 +53,16 @@ export default function ReportDownloadModal({
         format: 'a4',
       })
 
-      const pdfWidth = pdf.internal.pageSize.getWidth()
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width
-      const pageHeight = pdf.internal.pageSize.getHeight()
+      // Add Page 1
+      pdf.addImage(canvas1.toDataURL('image/png'), 'PNG', 0, 0, 210, 297)
 
-      // Add first page
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      // Add Page 2
+      pdf.addPage()
+      pdf.addImage(canvas2.toDataURL('image/png'), 'PNG', 0, 0, 210, 297)
 
-      // Add second page if content is taller than one page
-      if (pdfHeight > pageHeight) {
-        pdf.addPage()
-        pdf.addImage(imgData, 'PNG', 0, -pageHeight, pdfWidth, pdfHeight)
-      }
-
-      pdf.save(`Cardiosense_Report_${analysis.fileName.split('.')[0]}_${selectedLang}.pdf`)
+      pdf.save(`CardioSense_Report_${analysis.fileName.split('.')[0]}_${selectedLang}.pdf`)
       
-      toast.success(`Clinical PDF Report generated in ${LANGUAGES.find((l) => l.code === selectedLang)?.label || 'English'}!`)
+      toast.success(`Clinical PDF Report exported successfully in ${LANGUAGES.find((l) => l.code === selectedLang)?.label || 'English'}!`)
       onClose()
     } catch (err) {
       console.error(err)
