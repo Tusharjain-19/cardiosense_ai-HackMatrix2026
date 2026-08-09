@@ -79,10 +79,10 @@ export default function AdminPage() {
         {/* Platform Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((s) => (
-            <div key={s.label} className="card bg-slate-900 text-white border-0">
-              <span className="text-xs text-slate-400 block mb-1 font-semibold">{s.label}</span>
-              <p className="text-3xl font-black text-white">{s.value}</p>
-              <span className="text-[10px] text-blue-300 mt-1 block">{s.sub}</span>
+            <div key={s.label} className="card bg-white text-slate-900 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+              <span className="text-xs text-slate-500 block mb-1 font-bold">{s.label}</span>
+              <p className="text-3xl font-extrabold text-[#00605b]">{s.value}</p>
+              <span className="text-[10px] text-slate-600 font-semibold mt-1 block">{s.sub}</span>
             </div>
           ))}
         </div>

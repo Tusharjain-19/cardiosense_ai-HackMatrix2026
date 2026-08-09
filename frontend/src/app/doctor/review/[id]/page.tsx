@@ -105,23 +105,23 @@ export default function DoctorReviewPage() {
         </div>
 
         {/* AI Output Summary Header */}
-        <div className="card mb-6 bg-slate-900 text-white border-0 shadow-lg">
+        <div className="card mb-6 bg-white text-slate-900 border border-slate-200 shadow-sm">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <span className="text-[10px] text-slate-400 uppercase block font-semibold">AI Classification</span>
-              <strong className="text-lg text-blue-400">{analysis.aiPrediction.class}</strong>
+              <span className="text-[10px] text-slate-500 uppercase block font-bold">AI Classification</span>
+              <strong className="text-lg text-[#00605b] font-extrabold">{analysis.aiPrediction.class}</strong>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase block font-semibold">Model Confidence</span>
-              <strong className="text-lg text-white">{(analysis.aiPrediction.confidence * 100).toFixed(1)}%</strong>
+              <span className="text-[10px] text-slate-500 uppercase block font-bold">Model Confidence</span>
+              <strong className="text-lg text-slate-900 font-extrabold">{(analysis.aiPrediction.confidence * 100).toFixed(1)}%</strong>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase block font-semibold">Heart Rate</span>
-              <strong className="text-lg text-emerald-400">{analysis.heartRate.average} BPM</strong>
+              <span className="text-[10px] text-slate-500 uppercase block font-bold">Heart Rate</span>
+              <strong className="text-lg text-emerald-700 font-extrabold">{analysis.heartRate.average} BPM</strong>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase block font-semibold">Signal Quality</span>
-              <strong className="text-lg text-amber-400">{analysis.signalQuality.score}%</strong>
+              <span className="text-[10px] text-slate-500 uppercase block font-bold">Signal Quality</span>
+              <strong className="text-lg text-amber-700 font-extrabold">{analysis.signalQuality.score}%</strong>
             </div>
           </div>
         </div>
