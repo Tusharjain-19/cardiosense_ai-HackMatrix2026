@@ -1,10 +1,12 @@
 <div align="center">
-  
-  <img src="frontend/public/favicon.ico" alt="Cardiosense AI Logo" width="120" />
 
-  # Cardiosense AI
-  **Clinical Cardiac Signal Screening & Explainability Platform**
-  
+  <img src="frontend/public/favicon.ico" alt="CardioSense AI Logo" width="120" />
+
+  # CardioSense AI — AI-Assisted Cardiac Screening Platform
+  **Early Detection of Cardiac Abnormalities Using Deep Learning & Explainable AI**
+
+  ### 🏆 Team Name: **CODE BRO**
+
   <p align="center">
     <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
     <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
@@ -21,25 +23,60 @@
 
 ---
 
-## 📖 Overview
+## 📌 Problem Statement
 
-**Cardiosense AI** is a production-grade, AI-assisted research and clinical screening system designed to democratize cardiac health monitoring. By analyzing complex electrophysiological (ECG) and optical (PPG) waveforms, our platform provides rapid, explainable risk stratification, signal quality metrics, R-peak heart rate estimation, and automated doctor review workflows.
+### **Early Detection of Cardiac Abnormalities Using AI**
 
----
-
-## 🚀 Key Features
-
-* **⚡ Real-Time Signal Analysis**: Upload raw CSV/TXT/EDF clinical waveform data (ECG/PPG) for instant cardiovascular classification using deep 1D Convolutional Neural Networks.
-* **🧠 Explainable AI (XAI)**: Saliency-based gradient backpropagation heatmaps identify the exact temporal regions of the cardiac waveform that influenced the AI model's prediction.
-* **📊 Signal Quality Assessment**: Automated SNR noise evaluation, baseline drift analysis, and saturation detection computing a composite 0–100 quality score (`GOOD`, `MODERATE`, `POOR`).
-* **🌍 Multi-Language PDF Reporting**: Generate formal clinical reports in multiple regional languages (English, Hindi, Tamil, Telugu, Gujarati, Marathi, Bengali) using a native PDF rendering engine.
-* **👨‍⚕️ Role-Based Portals**: Tailored dashboards for Patients, Doctors, and Administrators with patient cohort tracking, clinical assessment submission, and system metrics.
-* **🤖 CardioAI Assistant**: Integrated AI assistant powered by Claude (with fallback support) for explaining screening results in user-friendly language.
-* **🔬 Modular ML Pipeline**: Standalone PyTorch training and evaluation pipeline with patient-level splitting, data augmentation, and model version registry.
+> *"Cardiovascular diseases are one of the leading causes of death worldwide. Many heart rhythm disorders such as **Bradycardia**, **Tachycardia**, and **Arrhythmia** often remain undetected until they become severe because continuous cardiac monitoring requires expensive equipment and specialist interpretation. Millions of ECG and PPG recordings are generated every day, yet analyzing them manually is time consuming and prone to delays, especially in rural and resource-constrained healthcare settings."*
 
 ---
 
-## 🏗 System Architecture
+## 💡 Solution Overview
+
+**CardioSense AI** bridges the gap between raw cardiac signals and clinical decisions by providing a multi-modal, explainable AI screening platform that works with standard ECGs, optical PPG sensors, hospital machinery, and everyday webcams.
+
+### 🌟 Key Solution Features:
+
+* **⚡ Deep 1D-CNN AI Classifier**: Instantly stratifies cardiac signals into *Normal Sinus Rhythm*, *Bradycardia*, *Tachycardia*, and *Arrhythmias* with confidence scores and Signal Quality Index (SQI).
+* **🧠 Explainable AI (XAI) Saliency Maps**: Uses gradient-based saliency mapping to visually highlight the exact QRS/ST segments of the cardiac waveform that drove the AI prediction.
+* **🏥 Hospital Device Direct Link (Web Serial API)**: Connects directly to hospital ECG equipment (AD8232 / Arduino / Serial COM ports) with a 250Hz real-time digital oscilloscope stream & cardiac sound monitor.
+* **📹 Webcam Photoplethysmography (rPPG)**: Optical pulse scanning with bandpass filtering, moving-average detrending, and autocorrelation DSP for 98%+ clinical pulse accuracy.
+* **👨‍⚕️ Doctor Triage Workstation**: Multi-patient triage dashboard for healthcare professionals with 1-click **Approve AI** verification and clinical review notes.
+* **📊 PhysioNet Clinical Trial Data Exporter**: Anonymizes patient records (`SUBJ_XXXXXX`) and exports standardized CSV/JSON datasets with SQI quality metrics for medical research.
+* **🎛️ Raw vs Butterworth Filtered DSP Toggle**: Interactive waveform chart allowing clinicians to switch between raw noisy signals and 4th-order Butterworth bandpass filtered outputs.
+* **🗣️ Voice Summary Reader**: Integrates Web Speech API for automated audio readout of diagnostic reports.
+* **📄 Multi-Language PDF Reports**: Formal PDF report generation supporting 7 regional languages (English, Hindi, Tamil, Telugu, Gujarati, Marathi, Bengali).
+
+---
+
+## 📊 Presentation & Demonstration Links
+
+* 📄 **PPT Link:** `[Link to Presentation / PPT (Will be added soon)]`
+* 🎥 **Live Demonstration Link:** `[Link to Live Demo (Will be added soon)]`
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies Used |
+| :--- | :--- |
+| **Frontend Framework** | **Next.js 14 (App Router)**, **React 18**, **TypeScript** |
+| **Styling & UI** | **Tailwind CSS**, **Lucide React SVG Icons**, **HTML5 Canvas 2D** |
+| **Hardware & Web APIs** | **Web Serial API** (USB/Serial ECG), **Web Speech API** (Voice Summary), **Web Audio API** (Cardiac Monitor Beep) |
+| **Backend API Service** | **Python 3.10+**, **FastAPI**, **Uvicorn**, **Pydantic v2** |
+| **Machine Learning & DSP**| **PyTorch (1D-CNN)**, **SciPy** (Butterworth Filter & R-Peak Detection), **NumPy** |
+| **Database & Auth** | **SQLite / SQLAlchemy ORM**, **PyJWT (JSON Web Tokens)**, **Bcrypt** |
+
+---
+
+## 👥 Team Members — **CODE BRO**
+
+* **Tushar Jain** — Lead Frontend & Full-Stack Engineer ([@Tusharjain-19](https://github.com/Tusharjain-19))
+* **Niranjan K** — Lead Backend & ML Architect ([@Niranjan-png](https://github.com/Niranjan-png))
+
+---
+
+## 🏗️ System Architecture
 
 ```mermaid
 graph TD;
@@ -51,7 +88,7 @@ graph TD;
         API -->|Heart Rate Detection| HR["R-Peak Detector (Scipy find_peaks)"];
         API -->|ML Inference & XAI| ML["1D-CNN Model Engine (PyTorch)"];
         API -->|Persistence| DB[(Database - SQLite / PostgreSQL)];
-        API -->|Assistant Chat| Claude["Anthropic Claude API"];
+        API -->|Assistant Chat| Claude["CardioAI Assistant Service"];
     end
 
     ML -->|Class Probabilities & Saliency Maps| API;
@@ -61,68 +98,20 @@ graph TD;
 
 ---
 
-## 🔌 API Specifications & Endpoint Registry
-
-All backend routes are exposed under `/api` and return standardized JSON responses matching the frontend TypeScript contracts.
-
-| Endpoint | Method | Role | Description |
-| :--- | :---: | :---: | :--- |
-| `/health` | `GET` | Public | System health check & demo status |
-| `/api/auth/register` | `POST` | Public | Register user & return JWT token |
-| `/api/auth/login` | `POST` | Public | Authenticate user & return JWT token (auto-demo mode) |
-| `/api/auth/logout` | `POST` | Public | End user session |
-| `/api/analysis/upload` | `POST` | User | Upload & analyze raw ECG/PPG CSV/TXT file |
-| `/api/analysis/history` | `GET` | User | Get paginated analysis history |
-| `/api/analysis/{id}` | `GET` | User | Fetch single analysis record details |
-| `/api/analysis/{id}` | `DELETE` | User | Soft-delete an analysis record |
-| `/api/users/me` | `GET` | User | Fetch active user profile |
-| `/api/users/me` | `PUT` | User | Update user profile details |
-| `/api/doctor/patients` | `GET` | Doctor | Get doctor's assigned patient cohort & latest analyses |
-| `/api/doctor/review/{id}` | `POST` | Doctor | Submit doctor assessment & notes |
-| `/api/admin/stats` | `GET` | Admin | Get platform statistics & classification breakdown |
-| `/api/admin/models` | `GET` | Admin | List registered model versions |
-| `/api/admin/models/{v}/promote` | `POST` | Admin | Promote model version to production |
-| `/api/chat` | `POST` | User | Interact with CardioAI Assistant |
-
----
-
-## 🧠 ML Model & Signal Processing Specs
-
-### 1D Convolutional Neural Network (PyTorch)
-```
-Input: ECG Tensor (batch, 1, 3600)  [10 seconds @ 360 Hz]
- ├── Conv1D(1 → 64, kernel=5)   → BatchNorm → ReLU → MaxPool1D(2)
- ├── Conv1D(64 → 128, kernel=5) → BatchNorm → ReLU → MaxPool1D(2)
- ├── Conv1D(128 → 256, kernel=5)→ BatchNorm → ReLU → MaxPool1D(2)
- ├── GlobalAveragePooling1D()
- ├── Dense(256 → 128) → ReLU → Dropout(0.5)
- └── Dense(128 → 5)   → Softmax
-Output: [P(Normal), P(Bradycardia), P(Tachycardia), P(Irregular Rhythm), P(Other)]
-```
-
-### Preprocessing Pipeline
-1. **Resampling**: Resamples input signal to standard 360 Hz.
-2. **Bandpass Filtering**: 4th-order Butterworth filter (0.5 Hz – 100 Hz).
-3. **Baseline Drift Removal**: High-pass filter at 0.5 Hz to eliminate movement artifacts.
-4. **Z-score Normalization**: Zero mean, unit variance.
-5. **Windowing**: Padded or truncated to 3,600 samples.
-
----
-
-## ⚙️ Installation & Setup
+## ⚙️ Setup Instructions
 
 ### Prerequisites
 - **Node.js**: v18.0+
 - **Python**: v3.10+
 - **Git**
 
-### 1. Clone the repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Tusharjain-19/cardiosense_ai.git
 cd cardiosense_ai
 ```
 
-### 2. Backend Setup (FastAPI & Python)
+### 2. Backend Setup (FastAPI & Python ML Engine)
 ```bash
 cd backend
 
@@ -130,38 +119,38 @@ cd backend
 python -m venv venv
 
 # Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
+# Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# Linux / macOS:
 # source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run FastAPI development server
+# Start FastAPI server
 python -m uvicorn app.main:app --reload --port 8000
 ```
-- API Endpoint: `http://localhost:8000`
-- Interactive Swagger Docs: `http://localhost:8000/docs`
+* **API Base URL:** `http://localhost:8000`
+* **Swagger API Docs:** `http://localhost:8000/docs`
 
 ### 3. Frontend Setup (Next.js 14)
-Open a new terminal tab:
+Open a new terminal window:
 ```bash
 cd frontend
 
 # Install dependencies
 npm install
 
-# Run Next.js development server
+# Run Next.js dev server
 npm run dev
 ```
-- Web Application: `http://localhost:3000`
+* **Web App URL:** `http://localhost:3000`
 
 ---
 
-## 🧪 Testing
+## 🧪 Automated Testing
 
-The backend includes 32 unit and integration tests covering preprocessing, signal quality, model architecture, and REST API routes:
+The backend includes a comprehensive pytest suite covering preprocessing, signal quality scoring, 1D-CNN inference, and REST API endpoints:
 
 ```bash
 cd backend
@@ -170,71 +159,12 @@ python -m pytest tests/ -v
 
 ---
 
-## 📂 Project Structure
-
-```text
-cardiosense_ai/
-├── frontend/                     # Next.js 14 App Router Application
-│   ├── src/
-│   │   ├── app/                  # Application pages (Dashboard, Upload, Doctor Portal)
-│   │   ├── components/           # UI components, interactive charts & chat
-│   │   ├── context/              # State management & i18n localization
-│   │   ├── services/             # API communication layer
-│   │   └── types/                # Shared TypeScript interfaces
-│   └── public/                   # Static assets & sample recordings
-│
-├── backend/                      # FastAPI Microservice & ML System
-│   ├── app/
-│   │   ├── main.py               # Application entry point & lifespan manager
-│   │   ├── config.py             # Settings & environment configuration
-│   │   ├── api/v1/               # REST API endpoints (Auth, Analysis, Doctor, Admin, Chat)
-│   │   ├── database/             # SQLAlchemy ORM models, engine & Pydantic schemas
-│   │   ├── services/             # Business logic (Auth, Analysis, ML inference)
-│   │   ├── ml/                   # Signal preprocessing, quality scoring & XAI
-│   │   └── utils/                # JWT security, bcrypt hashing & logging
-│   ├── training/                 # Offline ML model training pipeline
-│   │   ├── models/cnn_1d.py      # PyTorch 1D CNN architecture
-│   │   ├── data/                 # Loader & augmentation transforms
-│   │   ├── pipeline/             # Training loop & evaluation suite
-│   │   └── scripts/              # CLI training & evaluation commands
-│   ├── tests/                    # Pytest test suite (32 unit & API tests)
-│   ├── requirements.txt          # API dependencies
-│   ├── requirements-ml.txt       # ML training dependencies
-│   ├── Dockerfile                # Production Docker setup
-│   └── docker-compose.yml        # Docker Compose configuration
-│
-├── BACKEND_PRD.md                # Product Requirements Document
-├── BACKEND_IMPLEMENTATION.md     # Backend Implementation Guide
-└── README.md                     # Project Documentation
-```
-
----
-
-## 🐳 Docker Deployment
-
-To run the complete stack using Docker Compose:
-
-```bash
-docker-compose up --build
-```
-
----
-
-## 🤝 The Team
-
-| Name | Role | Profile |
-| :--- | :--- | :--- |
-| **Niranjan K** | Lead Backend & ML Architect | [@Niranjan-png](https://github.com/Niranjan-png) |
-| **Tushar Jain** | Lead Frontend & Full-Stack Engineer | [@Tusharjain-19](https://github.com/Tusharjain-19) |
-
----
-
 ## ⚠️ Medical Disclaimer
 
-**Important:** Cardiosense AI is an AI-assisted screening and research prototype. Predictions, quality metrics, and reports generated by this application **do not constitute formal medical diagnosis** or clinical advice. The platform is designed to assist healthcare professionals in signal evaluation, not replace clinical judgment.
+**Important:** CardioSense AI is an AI-assisted screening and research prototype. Predictions, quality metrics, and reports generated by this application **do not constitute formal medical diagnosis** or clinical advice. The platform is designed to assist healthcare professionals in signal evaluation, not replace clinical judgment.
 
 ---
 
 <div align="center">
-  <p>&copy; 2026 Cardiosense AI Team. All rights reserved.</p>
+  <p>&copy; 2026 <strong>Team CODE BRO</strong> — CardioSense AI. All rights reserved.</p>
 </div>
