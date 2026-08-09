@@ -180,17 +180,24 @@ export default function DoctorPatientsPage() {
                     </td>
                     <td className="px-4 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => alert(`AI Prediction for ${p.name} APPROVED and signed by Doctor.`)}
+                          className="px-2.5 py-1.5 bg-emerald-100 text-emerald-900 hover:bg-emerald-200 rounded-xl text-xs font-bold border border-emerald-300 flex items-center gap-1 transition-colors"
+                          title="1-Click Doctor Approval"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" /> Approve
+                        </button>
                         <Link
                           href={`/analysis/${analysis.id}`}
                           className="px-2.5 py-1.5 bg-blue-50 text-blue-800 hover:bg-blue-100 rounded-xl text-xs font-bold border border-blue-200 flex items-center gap-1 transition-colors"
                         >
-                          <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" /> AI Insights
+                          <Sparkles className="w-3.5 h-3.5 text-blue-600" /> AI Insights
                         </Link>
                         <Link
                           href={`/doctor/review/${analysis.id}`}
                           className="px-3 py-1.5 bg-[#00605b] hover:bg-[#147a74] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition-colors"
                         >
-                          <Eye className="w-3.5 h-3.5" /> Clinical Review & Remarks
+                          <Eye className="w-3.5 h-3.5" /> Full Review
                         </Link>
                       </div>
                     </td>

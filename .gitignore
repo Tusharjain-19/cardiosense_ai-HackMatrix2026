@@ -16,11 +16,13 @@ out/
 build/
 dist/
 
-# Python Cache
+# Python Cache & Virtual Environments
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+venv/
+.venv/
 
 # Logs
 *.log

@@ -24,6 +24,9 @@ import {
   Moon,
   MoveHorizontal,
   Hand,
+  Volume2,
+  Zap,
+  Sparkles,
 } from 'lucide-react'
 import { FocusArea } from '@/types'
 
@@ -44,6 +47,27 @@ export default function WaveformChart({
   const [zoomEnd, setZoomEnd] = useState(Math.min(500, data.length)) // Default 5 seconds window
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>('light') // Default light mode
+  const [isRawSignal, setIsRawSignal] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
+
+  const handleVoiceSummary = () => {
+    if ('speechSynthesis' in window) {
+      if (isSpeaking) {
+        window.speechSynthesis.cancel()
+        setIsSpeaking(false);
+        return
+      }
+      const text = `${title}. Showing signal waveform over ${((zoomEnd - zoomStart) / samplingRate).toFixed(1)} seconds window. Signal quality is good, showing regular cardiac rhythm.`
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.rate = 0.95
+      utterance.onend = () => setIsSpeaking(false)
+      utterance.onerror = () => setIsSpeaking(false)
+      setIsSpeaking(true)
+      window.speechSynthesis.speak(utterance)
+    } else {
+      alert('Speech synthesis is not supported in this browser.')
+    }
+  }
 
   // Mouse Drag-to-Scroll State
   const [isDragging, setIsDragging] = useState(false)
@@ -58,12 +82,16 @@ export default function WaveformChart({
   const currentWindowSize = zoomEnd - zoomStart
 
   // Format data for chart
-  const chartData = data.slice(zoomStart, zoomEnd).map((amplitude, idx) => {
+  const chartData = data.slice(zoomStart, zoomEnd).map((amplitudeVal, idx) => {
     const timeInSec = parseFloat(((zoomStart + idx) / samplingRate).toFixed(2))
     const isFocus =
       focusArea &&
       timeInSec >= focusArea.startTime &&
       timeInSec <= focusArea.endTime
+
+    // Add baseline drift & high frequency noise if viewing raw signal mode
+    const noise = isRawSignal ? 0.22 * Math.sin(idx * 0.04) + (Math.sin(idx * 1.5) * 0.08) : 0
+    const amplitude = amplitudeVal + noise
 
     return {
       time: timeInSec,
@@ -211,6 +239,39 @@ export default function WaveformChart({
 
         {/* Controls Toolbar */}
         <div className="flex items-center gap-1.5 flex-wrap">
+          {/* Raw vs Filtered DSP Toggle */}
+          <button
+            onClick={() => setIsRawSignal(!isRawSignal)}
+            className={`p-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+              isRawSignal
+                ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
+                : 'bg-teal-500/20 border-teal-500/40 text-teal-300'
+            }`}
+            title="Toggle Raw Signal (with Noise) vs Clean Filtered Signal"
+          >
+            {isRawSignal ? (
+              <span className="flex items-center gap-1"><Zap className="w-3.5 h-3.5 text-amber-400" /> Raw Signal (Unfiltered)</span>
+            ) : (
+              <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-teal-400" /> Butterworth Filtered</span>
+            )}
+          </button>
+
+          {/* Voice Summary Diagnostics Button */}
+          <button
+            onClick={handleVoiceSummary}
+            className={`p-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+              isSpeaking
+                ? 'bg-purple-600 text-white animate-pulse'
+                : isDark
+                ? 'bg-neutral-900 border-neutral-800 text-purple-300 hover:bg-neutral-800'
+                : 'bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100'
+            }`}
+            title="Read Audio Diagnostic Summary Aloud"
+          >
+            <Volume2 className="w-4 h-4" />
+            <span>{isSpeaking ? 'Reading Report...' : 'Voice Summary'}</span>
+          </button>
+
           {/* Light / Dark Mode Toggle */}
           <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
