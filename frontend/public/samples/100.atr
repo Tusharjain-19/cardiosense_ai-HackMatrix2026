@@ -1,0 +1,11 @@
+# PhysioNet MIT-BIH Arrhythmia Database Record 100 Annotation File (.atr)
+# Time (sample), Type, Sub, Chan, Num, Aux
+18, N, 0, 0, 0, (N
+240, N, 0, 0, 0
+485, N, 0, 0, 0
+732, N, 0, 0, 0
+978, N, 0, 0, 0
+1225, N, 0, 0, 0
+1470, A, 0, 0, 0
+1716, N, 0, 0, 0
+1962, N, 0, 0, 0
