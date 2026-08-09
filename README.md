@@ -7,6 +7,8 @@
 
   ### 🏆 Team Name: **CODE BRO**
 
+  
+
   <p align="center">
     <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
     <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
@@ -74,7 +76,7 @@
 
 ## 📊 Presentation & Demonstration Links
 
-* 📄 **PPT Link:** `[Link to Presentation / PPT (Will be added soon)]`
+* **PPT Link:** [📊 View CardioSense AI Presentation](https://drive.google.com/file/d/1EtIglcMbS1xfX6V22JzN-JmA6a2fambD/view?usp=sharing)
 * 🎥 **Live Demonstration Link:** `[Link to Live Demo (Will be added soon)]`
 
 ---
