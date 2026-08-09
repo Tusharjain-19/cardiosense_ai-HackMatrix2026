@@ -33,14 +33,13 @@
 
 ## 💡 Solution Overview
 
-**CardioSense AI** bridges the gap between raw cardiac signals and clinical decisions by providing a multi-modal, explainable AI screening platform that works with standard ECGs, optical PPG sensors, hospital machinery, and everyday webcams.
+**CardioSense AI** bridges the gap between raw cardiac signals and clinical decisions by providing a multi-modal, explainable AI screening platform that works with standard ECGs, optical PPG sensors, and hospital machinery.
 
 ### 🌟 Key Solution Features:
 
 * **⚡ Deep 1D-CNN AI Classifier**: Instantly stratifies cardiac signals into *Normal Sinus Rhythm*, *Bradycardia*, *Tachycardia*, and *Arrhythmias* with confidence scores and Signal Quality Index (SQI).
 * **🧠 Explainable AI (XAI) Saliency Maps**: Uses gradient-based saliency mapping to visually highlight the exact QRS/ST segments of the cardiac waveform that drove the AI prediction.
 * **🏥 Hospital Device Direct Link (Web Serial API)**: Connects directly to hospital ECG equipment (AD8232 / Arduino / Serial COM ports) with a 250Hz real-time digital oscilloscope stream & cardiac sound monitor.
-* **📹 Webcam Photoplethysmography (rPPG)**: Optical pulse scanning with bandpass filtering, moving-average detrending, and autocorrelation DSP for 98%+ clinical pulse accuracy.
 * **👨‍⚕️ Doctor Triage Workstation**: Multi-patient triage dashboard for healthcare professionals with 1-click **Approve AI** verification and clinical review notes.
 * **📊 PhysioNet Clinical Trial Data Exporter**: Anonymizes patient records (`SUBJ_XXXXXX`) and exports standardized CSV/JSON datasets with SQI quality metrics for medical research.
 * **🎛️ Raw vs Butterworth Filtered DSP Toggle**: Interactive waveform chart allowing clinicians to switch between raw noisy signals and 4th-order Butterworth bandpass filtered outputs.

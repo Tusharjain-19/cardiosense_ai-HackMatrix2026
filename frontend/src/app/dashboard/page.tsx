@@ -24,7 +24,6 @@ import {
   Activity,
 } from 'lucide-react'
 import { HospitalDeviceLink } from '@/components/HospitalDeviceLink'
-import { WebcamPPGScanner } from '@/components/WebcamPPGScanner'
 import { ClinicalTrialExporter } from '@/components/ClinicalTrialExporter'
 import { useSearchParams } from 'next/navigation'
 
@@ -147,7 +146,7 @@ function DashboardContent() {
             </div>
           </div>
 
-          {/* Mode Switcher Tabs for Hospital Direct Link & Webcam PPG */}
+          {/* Mode Switcher Tabs for Hospital Direct Link & Exporter */}
           <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 overflow-x-auto">
             <button
               onClick={() => setActiveMode('standard')}
@@ -172,17 +171,6 @@ function DashboardContent() {
               Hospital Device Link (Web Serial / Oscilloscope)
             </button>
             <button
-              onClick={() => setActiveMode('webcam')}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
-                activeMode === 'webcam'
-                  ? 'bg-sky-700 text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              <Sparkles className="w-4 h-4 text-sky-200" />
-              Webcam rPPG Pulse Scanner
-            </button>
-            <button
               onClick={() => setActiveMode('exporter')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'exporter'
@@ -198,10 +186,6 @@ function DashboardContent() {
           {/* Render Active Specialized Mode if selected */}
           {activeMode === 'hospital' && (
             <HospitalDeviceLink />
-          )}
-
-          {activeMode === 'webcam' && (
-            <WebcamPPGScanner />
           )}
 
           {activeMode === 'exporter' && (

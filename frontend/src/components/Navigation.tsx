@@ -102,14 +102,6 @@ export default function Navigation() {
                   </Link>
 
                   <Link
-                    href="/dashboard?mode=webcam"
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200`}
-                  >
-                    <UploadCloud className="w-4 h-4 text-sky-600 shrink-0" />
-                    Webcam rPPG
-                  </Link>
-
-                  <Link
                     href="/history"
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       isActive('/history')
