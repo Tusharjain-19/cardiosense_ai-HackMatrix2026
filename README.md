@@ -77,7 +77,8 @@
 ## 📊 Presentation & Demonstration Links
 
 * **PPT Link:** [📊 View CardioSense AI Presentation](https://drive.google.com/file/d/1EtIglcMbS1xfX6V22JzN-JmA6a2fambD/view?usp=sharing)
-* 🎥 **Live Demonstration Link:** `[Link to Live Demo (Will be added soon)]`
+
+* **🎥 Video Demonstration:** [Watch CardioSense AI Demo](https://drive.google.com/file/d/1yuJ_rHb-qcSAwdCfIRIucFGXGkXtjiEC/view?usp=sharing)
 
 ---
 
