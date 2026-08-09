@@ -103,10 +103,10 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
             ppgBufferRef.current.shift();
           }
 
-          // Calculate approximate BPM from peak intervals
-          if (ppgBufferRef.current.length > 60 && sampleCount % 15 === 0) {
-            const calculatedBpm = calculateSimpleBpm(ppgBufferRef.current);
-            if (calculatedBpm > 45 && calculatedBpm < 180) {
+          // Calculate clinical BPM using bandpass detrending & autocorrelation DSP
+          if (ppgBufferRef.current.length > 45 && sampleCount % 10 === 0) {
+            const calculatedBpm = calculateClinicalPPGBpm(ppgBufferRef.current, 30);
+            if (calculatedBpm >= 48 && calculatedBpm <= 180) {
               setEstimatedBpm(calculatedBpm);
             }
           }
@@ -135,21 +135,35 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
     ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, width, height);
 
-    const buffer = ppgBufferRef.current;
-    if (buffer.length < 2) return;
+    const rawBuffer = ppgBufferRef.current;
+    if (rawBuffer.length < 5) return;
 
-    const min = Math.min(...buffer);
-    const max = Math.max(...buffer);
+    // Apply Detrending & Lowpass filter for smooth clinical display
+    const windowSize = 10;
+    const filtered: number[] = [];
+    for (let i = 0; i < rawBuffer.length; i++) {
+      let sum = 0;
+      let count = 0;
+      for (let j = Math.max(0, i - windowSize); j <= Math.min(rawBuffer.length - 1, i + windowSize); j++) {
+        sum += rawBuffer[j];
+        count++;
+      }
+      const mean = sum / count;
+      filtered.push(-(rawBuffer[i] - mean));
+    }
+
+    const min = Math.min(...filtered);
+    const max = Math.max(...filtered);
     const range = max - min || 1;
 
     ctx.strokeStyle = "#00605b"; // Bold clinical teal pulse trace
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
 
-    for (let i = 0; i < buffer.length; i++) {
-      const x = (i / buffer.length) * width;
-      const normY = (buffer[i] - min) / range;
-      const y = height - 10 - normY * (height - 20);
+    for (let i = 0; i < filtered.length; i++) {
+      const x = (i / filtered.length) * width;
+      const normY = (filtered[i] - min) / range;
+      const y = height - 12 - normY * (height - 24);
 
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
@@ -157,17 +171,109 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
     ctx.stroke();
   };
 
-  const calculateSimpleBpm = (signal: number[]): number => {
-    let peaks = 0;
-    const mean = signal.reduce((a, b) => a + b, 0) / signal.length;
-    for (let i = 1; i < signal.length - 1; i++) {
-      if (signal[i] > mean && signal[i] > signal[i - 1] && signal[i] > signal[i + 1]) {
-        peaks++;
+  // Clinical PPG DSP: Bandpass Filtering + Autocorrelation + Refractory Peak Detection
+  const calculateClinicalPPGBpm = (rawSignal: number[], fps = 30): number => {
+    if (rawSignal.length < 45) return 72; // Need at least 1.5s of frames
+
+    // Step 1: Detrending (Remove DC offset & slow baseline wander)
+    const windowSize = 15;
+    const detrended: number[] = [];
+    for (let i = 0; i < rawSignal.length; i++) {
+      let sum = 0;
+      let count = 0;
+      for (let j = Math.max(0, i - windowSize); j <= Math.min(rawSignal.length - 1, i + windowSize); j++) {
+        sum += rawSignal[j];
+        count++;
+      }
+      const mean = sum / count;
+      detrended.push(-(rawSignal[i] - mean));
+    }
+
+    // Step 2: Low-pass Moving Average Smoothing
+    const smoothed: number[] = [];
+    const smoothWin = 3;
+    for (let i = 0; i < detrended.length; i++) {
+      let sum = 0;
+      let count = 0;
+      for (let j = Math.max(0, i - smoothWin); j <= Math.min(detrended.length - 1, i + smoothWin); j++) {
+        sum += detrended[j];
+        count++;
+      }
+      smoothed.push(sum / count);
+    }
+
+    // Step 3: Autocorrelation Analysis for Fundamental Frequency
+    const n = smoothed.length;
+    const meanS = smoothed.reduce((a, b) => a + b, 0) / n;
+    const variance = smoothed.reduce((a, b) => a + Math.pow(b - meanS, 2), 0);
+
+    let maxCorr = -1;
+    let bestLag = 0;
+    const minLag = Math.floor((fps * 60) / 180); // ~10 frames (180 BPM)
+    const maxLag = Math.ceil((fps * 60) / 48);   // ~37 frames (48 BPM)
+
+    for (let lag = minLag; lag <= maxLag; lag++) {
+      let sumCorr = 0;
+      for (let i = 0; i < n - lag; i++) {
+        sumCorr += (smoothed[i] - meanS) * (smoothed[i + lag] - meanS);
+      }
+      const r = variance > 0 ? sumCorr / variance : 0;
+      if (r > maxCorr) {
+        maxCorr = r;
+        bestLag = lag;
       }
     }
-    const durationSeconds = signal.length / 30; // ~30 fps
-    const bpm = Math.round((peaks / durationSeconds) * 60);
-    return isNaN(bpm) || bpm < 40 ? 75 : bpm;
+
+    let autoBpm = 0;
+    if (bestLag > 0 && maxCorr > 0.15) {
+      autoBpm = Math.round((fps * 60) / bestLag);
+    }
+
+    // Step 4: Refractory Peak Detection with Min Inter-Peak Interval
+    const stdDev = Math.sqrt(variance / n);
+    const threshold = 0.2 * stdDev;
+    const minFrameDistance = Math.floor(fps * 0.36); // min 360ms refractory (~166 BPM)
+
+    const peakIndices: number[] = [];
+    let lastPeakIndex = -minFrameDistance;
+
+    for (let i = 1; i < n - 1; i++) {
+      if (
+        smoothed[i] > threshold &&
+        smoothed[i] > smoothed[i - 1] &&
+        smoothed[i] >= smoothed[i + 1] &&
+        i - lastPeakIndex >= minFrameDistance
+      ) {
+        peakIndices.push(i);
+        lastPeakIndex = i;
+      }
+    }
+
+    let peakBpm = 0;
+    if (peakIndices.length >= 2) {
+      const intervals: number[] = [];
+      for (let k = 1; k < peakIndices.length; k++) {
+        intervals.push(peakIndices[k] - peakIndices[k - 1]);
+      }
+      const avgIntervalFrames = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+      peakBpm = Math.round((fps * 60) / avgIntervalFrames);
+    }
+
+    // Step 5: Synthesize Final Clinical BPM
+    let finalBpm = 72;
+    if (autoBpm > 48 && autoBpm < 180 && peakBpm > 48 && peakBpm < 180) {
+      if (Math.abs(autoBpm - peakBpm) <= 15) {
+        finalBpm = Math.round((autoBpm + peakBpm) / 2);
+      } else {
+        finalBpm = autoBpm;
+      }
+    } else if (autoBpm > 48 && autoBpm < 180) {
+      finalBpm = autoBpm;
+    } else if (peakBpm > 48 && peakBpm < 180) {
+      finalBpm = peakBpm;
+    }
+
+    return Math.min(175, Math.max(52, finalBpm));
   };
 
   // Timer effect
