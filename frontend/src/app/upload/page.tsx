@@ -67,14 +67,22 @@ export default function UploadPage() {
     setIsPatientModalOpen(false)
     setIsLoading(true)
     try {
+      const details = patientDetails
+        ? {
+            ...patientDetails,
+            patientAge: patientDetails.patientAge ? Number(patientDetails.patientAge) : undefined,
+          }
+        : undefined
       const res = await apiService.processSignal(
         selectedFile,
         fileType,
         selectedSample,
-        patientDetails
+        details
       )
       toast.success('Patient record saved & AI analysis completed!')
-      router.push(`/analysis/${res.data.id}`)
+      if (res.data?.id) {
+        router.push(`/analysis/${res.data.id}`)
+      }
     } catch (err) {
       console.error(err)
       toast.error('Failed to process signal. Please try again.')

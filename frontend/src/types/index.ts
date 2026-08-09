@@ -120,9 +120,9 @@ export interface SmartAlert {
 }
 
 // Generic API Response
-export interface ApiResponse<T> {
+export interface ApiResponse<T = any> {
   success: boolean
-  data: T
+  data?: T
   error?: string
   timestamp: string
 }

@@ -43,7 +43,7 @@ export default function AnalysisPage() {
     try {
       setIsLoading(true)
       const res = await apiService.getAnalysis(analysisId)
-      setAnalysis(res.data)
+      setAnalysis(res.data || null)
     } catch (err) {
       console.error(err)
       toast.error('Could not load analysis details.')

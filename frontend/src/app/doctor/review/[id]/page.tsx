@@ -30,9 +30,9 @@ export default function DoctorReviewPage() {
     try {
       setIsLoading(true)
       const res = await apiService.getAnalysis(analysisId)
-      const data = res.data
+      const data = res.data || null
       setAnalysis(data)
-      if (data.review) {
+      if (data?.review) {
         setAssessment(data.review.assessment)
         setClinicalNotes(data.review.notes || '')
       }

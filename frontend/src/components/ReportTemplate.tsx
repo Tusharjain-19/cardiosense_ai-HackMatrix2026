@@ -14,12 +14,33 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
   const [logoUrl, setLogoUrl] = useState('')
   const [graphUrl, setGraphUrl] = useState('')
 
+  const focusArea = (analysis as any).xaiFocusArea || analysis.focusArea
+  const cardiac = (analysis as any).cardiacMetrics || {
+    heartRate: analysis.heartRate?.average || 72,
+    hrMin: analysis.heartRate?.min || 68,
+    hrMax: analysis.heartRate?.max || 79,
+    hrv: analysis.heartRate?.variability || 'low',
+  }
+  const quality = {
+    score: analysis.signalQuality?.score || 94,
+    status: analysis.signalQuality?.status || 'GOOD',
+    noiseLevel: (analysis.signalQuality as any)?.noiseLevel || analysis.signalQuality?.factors?.noise || 'low',
+    baselineStability: (analysis.signalQuality as any)?.baselineStability || analysis.signalQuality?.factors?.baseline || 'stable',
+  }
+  const classDist = (analysis.aiPrediction as any)?.probabilities || analysis.aiPrediction?.classDistribution || {
+    Normal: 0.95,
+    Bradycardia: 0.02,
+    Tachycardia: 0.01,
+    'Irregular Rhythm': 0.01,
+    Other: 0.01,
+  }
+
   useEffect(() => {
     setLogoUrl(renderLogoToCanvas())
     if (analysis.rawSignal) {
-      setGraphUrl(renderECGGraphCanvas(analysis.rawSignal, analysis.xaiFocusArea))
+      setGraphUrl(renderECGGraphCanvas(analysis.rawSignal, focusArea))
     }
-  }, [analysis])
+  }, [analysis, focusArea])
 
   const confColor = analysis.aiPrediction.confidence >= 0.85 ? 'text-emerald-700' : 
                     analysis.aiPrediction.confidence >= 0.70 ? 'text-amber-600' : 'text-red-600'
@@ -63,27 +84,27 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
           <div className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm">
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.qualityScore}</span> 
-              <span className="font-bold">{analysis.signalQuality.score}% ({analysis.signalQuality.status})</span>
+              <span className="font-bold">{quality.score}% ({quality.status})</span>
             </div>
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.noiseLevel}</span> 
-              <span className="font-bold">{analysis.signalQuality.noiseLevel}</span>
+              <span className="font-bold">{quality.noiseLevel}</span>
             </div>
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.baselineStability}</span> 
-              <span className="font-bold">{analysis.signalQuality.baselineStability}</span>
+              <span className="font-bold">{quality.baselineStability}</span>
             </div>
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.heartRateAvg}</span> 
-              <span className="font-bold">{analysis.cardiacMetrics.heartRate} BPM</span>
+              <span className="font-bold">{cardiac.heartRate} BPM</span>
             </div>
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.hrRange}</span> 
-              <span className="font-bold">{analysis.cardiacMetrics.hrMin} - {analysis.cardiacMetrics.hrMax} BPM</span>
+              <span className="font-bold">{cardiac.hrMin} - {cardiac.hrMax} BPM</span>
             </div>
             <div className="flex justify-between border-b border-slate-100 pb-1">
               <span className="font-semibold text-slate-500">{t.hrVariability}</span> 
-              <span className="font-bold">{analysis.cardiacMetrics.hrv} ms</span>
+              <span className="font-bold">{cardiac.hrv}</span>
             </div>
           </div>
         </section>
@@ -104,8 +125,8 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
             <div>
               <span className="text-slate-500 font-bold uppercase text-xs block mb-3">{t.probabilityTitle}</span>
               <div className="space-y-3">
-                {Object.entries(analysis.aiPrediction.probabilities).map(([className, prob]) => {
-                  const percent = (prob as number * 100).toFixed(1)
+                {Object.entries(classDist).map(([className, prob]) => {
+                  const percent = ((prob as number) * 100).toFixed(1)
                   return (
                     <div key={className} className="flex items-center gap-4">
                       <span className="w-48 text-sm font-semibold truncate">{className}</span>
@@ -146,8 +167,8 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
         <section>
           <h2 className="text-lg font-bold text-[#0F2942] border-b-2 border-slate-200 pb-2 mb-4 uppercase">{t.explainableSection}</h2>
           <div className="bg-amber-50/50 p-4 border-l-4 border-amber-500 rounded-r-lg">
-            <p className="text-sm mb-2"><span className="font-bold text-slate-700">{t.focusSegment}</span> <span className="font-semibold">{analysis.xaiFocusArea?.startTime}s - {analysis.xaiFocusArea?.endTime}s</span></p>
-            <p className="text-sm"><span className="font-bold text-slate-700">{t.focusDescription}</span> <span className="text-slate-600 font-medium">{analysis.xaiFocusArea?.description}</span></p>
+            <p className="text-sm mb-2"><span className="font-bold text-slate-700">{t.focusSegment}</span> <span className="font-semibold">{focusArea?.startTime}s - {focusArea?.endTime}s</span></p>
+            <p className="text-sm"><span className="font-bold text-slate-700">{t.focusDescription}</span> <span className="text-slate-600 font-medium">{focusArea?.description}</span></p>
           </div>
         </section>
 

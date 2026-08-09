@@ -44,7 +44,7 @@ export default function DashboardPage() {
 
       // Derive smart alerts from analyses
       const generatedAlerts: SmartAlert[] = []
-      list.forEach((a) => {
+      list.forEach((a: Analysis) => {
         if (a.aiPrediction.confidence < 0.65) {
           generatedAlerts.push({
             id: `alert_conf_${a.id}`,
@@ -80,9 +80,9 @@ export default function DashboardPage() {
     }
   }
 
-  const normalCount = analyses.filter((a) => a.aiPrediction.class === 'Normal').length
-  const reviewCount = analyses.filter((a) => a.aiPrediction.confidence < 0.65).length
-  const poorQualityCount = analyses.filter((a) => a.signalQuality.status === 'POOR').length
+  const normalCount = analyses.filter((a: Analysis) => a.aiPrediction.class === 'Normal').length
+  const reviewCount = analyses.filter((a: Analysis) => a.aiPrediction.confidence < 0.65).length
+  const poorQualityCount = analyses.filter((a: Analysis) => a.signalQuality.status === 'POOR').length
   const latestAnalysis = analyses[0] || null
 
   return (

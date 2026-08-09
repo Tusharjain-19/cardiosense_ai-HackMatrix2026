@@ -10,6 +10,7 @@ interface AuthStore {
   signup: (data: Partial<User>) => Promise<User>
   logout: () => void
   setUser: (user: User) => void
+  updateUser: (data: Partial<User>) => void
   switchRole: (role: UserRole) => void
 }
 
@@ -83,6 +84,17 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       localStorage.setItem('cardioai_user', JSON.stringify(user))
     }
     set({ user })
+  },
+
+  updateUser: (data: Partial<User>) => {
+    const currentUser = get().user
+    if (currentUser) {
+      const updated = { ...currentUser, ...data, updatedAt: new Date().toISOString() }
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('cardioai_user', JSON.stringify(updated))
+      }
+      set({ user: updated })
+    }
   },
 
   switchRole: (role: UserRole) => {
