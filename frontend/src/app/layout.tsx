@@ -57,6 +57,7 @@ export default function RootLayout({
                   <ul className="space-y-2.5 text-xs font-medium">
                     <li><Link href="/dashboard" className="hover:text-blue-600 transition-colors">Dashboard</Link></li>
                     <li><Link href="/upload" className="hover:text-blue-600 transition-colors">Upload Signal (ECG/PPG)</Link></li>
+                    <li><Link href="/scanner" className="hover:text-blue-600 transition-colors">Live Heart Scanner</Link></li>
                     <li><Link href="/history" className="hover:text-blue-600 transition-colors">History & Trends</Link></li>
                     <li><Link href="/doctor/patients" className="hover:text-blue-600 transition-colors">Doctor Portal</Link></li>
                     <li><Link href="/about" className="hover:text-blue-600 transition-colors">About & Architecture</Link></li>

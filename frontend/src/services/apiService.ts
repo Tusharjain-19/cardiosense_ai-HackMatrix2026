@@ -212,6 +212,101 @@ export const apiService = {
     }
   },
 
+  // Process webcam rPPG capture
+  async processWebcamPPG(
+    rawSignal: number[],
+    bpm: number,
+    signalQualityScore: number,
+    duration: number,
+    patientDetails?: {
+      patientName?: string
+      patientAge?: number
+      patientGender?: string
+      patientId?: string
+      clinicalNotes?: string
+    }
+  ): Promise<ApiResponse<Analysis>> {
+    const id = `analysis_${Date.now().toString().slice(-6)}`
+    const isNoisy = signalQualityScore < 40
+    const isTachy = bpm > 100
+    const isBrady = bpm < 60
+
+    let predictedClass: Analysis['aiPrediction']['class'] = 'Normal'
+    let confidence = 0.85
+    if (isTachy) {
+      predictedClass = 'Tachycardia'
+      confidence = 0.88
+    } else if (isBrady) {
+      predictedClass = 'Bradycardia'
+      confidence = 0.82
+    } else if (isNoisy) {
+      confidence = 0.52
+    }
+
+    // Use the captured PPG waveform or generate a synthetic one for display
+    const displaySignal = rawSignal.length > 100
+      ? rawSignal.slice(0, Math.min(rawSignal.length, 1500))
+      : generatePPGWaveform(bpm || 72, 15, 100, isNoisy ? 0.28 : 0.05)
+
+    const qualityStatus = signalQualityScore >= 60 ? 'GOOD' : signalQualityScore >= 35 ? 'MODERATE' : 'POOR'
+
+    const newAnalysis: Analysis = {
+      id,
+      userId: 'user_patient_001',
+      patientName: patientDetails?.patientName || 'Anonymous Patient',
+      patientAge: patientDetails?.patientAge || 30,
+      patientGender: patientDetails?.patientGender || 'Other',
+      patientId: patientDetails?.patientId || `PAT-${Math.floor(10000 + Math.random() * 90000)}`,
+      clinicalNotes: patientDetails?.clinicalNotes || `Webcam rPPG scan — ${duration}s capture`,
+      fileType: 'PPG',
+      fileName: 'Webcam rPPG Capture',
+      uploadedAt: new Date().toISOString(),
+      signalQuality: {
+        score: signalQualityScore,
+        status: qualityStatus as 'GOOD' | 'MODERATE' | 'POOR',
+        factors: {
+          noise: isNoisy ? 'high' : 'low',
+          baseline: 'stable',
+          saturation: 'none',
+        },
+      },
+      heartRate: {
+        average: bpm || 72,
+        min: Math.max(40, (bpm || 72) - 6),
+        max: (bpm || 72) + 7,
+        variability: 'low',
+      },
+      aiPrediction: {
+        class: predictedClass,
+        confidence,
+        classDistribution: {
+          Normal: predictedClass === 'Normal' ? confidence : parseFloat(((1 - confidence) / 4).toFixed(3)),
+          Bradycardia: predictedClass === 'Bradycardia' ? confidence : parseFloat(((1 - confidence) / 4).toFixed(3)),
+          Tachycardia: predictedClass === 'Tachycardia' ? confidence : parseFloat(((1 - confidence) / 4).toFixed(3)),
+          'Irregular Rhythm': parseFloat(((1 - confidence) / 4).toFixed(3)),
+          Other: 0.01,
+        },
+      },
+      anomalyScore: isTachy ? 0.68 : isBrady ? 0.48 : 0.12,
+      focusArea: {
+        startTime: 3.0,
+        endTime: 5.0,
+        description: `Webcam rPPG signal segment contributing to ${predictedClass} classification.`,
+      },
+      rawSignal: displaySignal,
+      processingTime: 1.8,
+      status: 'COMPLETED',
+    }
+
+    saveAnalysis(newAnalysis)
+
+    return {
+      success: true,
+      data: newAnalysis,
+      timestamp: new Date().toISOString(),
+    }
+  },
+
   // Submit doctor review
   async submitDoctorReview(review: DoctorReview): Promise<ApiResponse<DoctorReview>> {
     saveDoctorReview(review)
@@ -222,3 +317,4 @@ export const apiService = {
     }
   },
 }
+

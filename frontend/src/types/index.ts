@@ -119,6 +119,18 @@ export interface SmartAlert {
   isDismissed: boolean
 }
 
+// Webcam rPPG Scan Result
+export interface PPGScanResult {
+  rawSignal: number[]
+  filteredSignal: number[]
+  bpm: number
+  signalQuality: number  // 0-100
+  duration: number        // seconds
+  sampleRate: number      // ~30 fps
+  mode: 'finger' | 'face'
+  capturedAt: string
+}
+
 // Generic API Response
 export interface ApiResponse<T = any> {
   success: boolean

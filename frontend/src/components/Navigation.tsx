@@ -23,6 +23,7 @@ import {
   ChevronDown,
   User,
   Sparkles,
+  ScanLine,
 } from 'lucide-react'
 
 export default function Navigation() {
@@ -94,6 +95,18 @@ export default function Navigation() {
                   </Link>
 
                   <Link
+                    href="/scanner"
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      isActive('/scanner')
+                        ? 'bg-rose-50 text-rose-900 border border-rose-200 shadow-sm'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <ScanLine className="w-4 h-4 text-rose-500 shrink-0" />
+                    Live Scanner
+                  </Link>
+
+                  <Link
                     href="/dashboard?mode=hospital"
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200`}
                   >
@@ -140,6 +153,18 @@ export default function Navigation() {
                   >
                     <UploadCloud className="w-4 h-4 text-teal-700 shrink-0" />
                     {t('uploadNewSignal')}
+                  </Link>
+
+                  <Link
+                    href="/scanner"
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      isActive('/scanner')
+                        ? 'bg-rose-50 text-rose-900 border border-rose-200 shadow-sm'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    <ScanLine className="w-4 h-4 text-rose-500 shrink-0" />
+                    Live Scanner
                   </Link>
 
                   <Link
@@ -357,6 +382,13 @@ export default function Navigation() {
                   className="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-100 text-xs"
                 >
                   {t('uploadNewSignal')}
+                </Link>
+                <Link
+                  href="/scanner"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-rose-700 font-bold hover:bg-rose-50 text-xs"
+                >
+                  Live Heart Scanner
                 </Link>
                 <Link
                   href="/history"
