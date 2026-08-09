@@ -114,7 +114,7 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
 
     const width = chartCanvas.width;
     const height = chartCanvas.height;
-    ctx.fillStyle = "#0f172a";
+    ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, width, height);
 
     const buffer = ppgBufferRef.current;
@@ -124,7 +124,7 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
     const max = Math.max(...buffer);
     const range = max - min || 1;
 
-    ctx.strokeStyle = "#38bdf8"; // Light blue pulse line
+    ctx.strokeStyle = "#00605b"; // Bold clinical teal pulse trace
     ctx.lineWidth = 2;
     ctx.beginPath();
 
@@ -256,14 +256,14 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
           {!isCameraActive ? (
             <button
               onClick={startCamera}
-              className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-semibold flex items-center gap-2 transition-all"
+              className="px-4 py-2 bg-[#00605b] hover:bg-[#147a74] text-white rounded-xl text-xs font-extrabold flex items-center gap-2 shadow-md transition-all"
             >
               <Camera className="w-4 h-4" /> Enable Camera
             </button>
           ) : (
             <button
               onClick={stopCamera}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold"
+              className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-bold transition-all"
             >
               Turn Off Camera
             </button>
@@ -272,8 +272,8 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
       </div>
 
       {cameraError && (
-        <div className="p-4 bg-red-950/50 border border-red-500/40 text-red-300 rounded-xl text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+        <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-center gap-2 font-semibold">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-600" />
           {cameraError}
         </div>
       )}
@@ -281,7 +281,7 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
       {/* Main Scanner Container */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
         {/* Video feed box */}
-        <div className="relative bg-slate-950 border border-slate-800 rounded-xl overflow-hidden aspect-video flex items-center justify-center">
+        <div className="relative bg-slate-100 border-2 border-slate-200 rounded-2xl overflow-hidden aspect-video flex items-center justify-center shadow-inner">
           <video
             ref={videoRef}
             className={`w-full h-full object-cover ${!isCameraActive && "hidden"}`}
@@ -291,39 +291,39 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
           <canvas ref={canvasRef} width={160} height={120} className="hidden" />
 
           {!isCameraActive && (
-            <div className="text-center p-6 text-slate-500 space-y-2">
-              <Camera className="w-10 h-10 mx-auto text-slate-600" />
-              <p className="text-xs">Click "Enable Camera" and cover camera with fingertip or align face.</p>
+            <div className="text-center p-6 text-slate-600 space-y-2">
+              <Camera className="w-10 h-10 mx-auto text-slate-400" />
+              <p className="text-xs font-medium">Click "Enable Camera" and cover camera with fingertip or align face.</p>
             </div>
           )}
 
           {isCameraActive && (
             <div className="absolute inset-0 border-2 border-sky-500/30 rounded-xl pointer-events-none flex items-center justify-center">
-              <div className="w-32 h-32 rounded-full border-2 border-dashed border-sky-400/60 animate-spin" />
+              <div className="w-32 h-32 rounded-full border-2 border-dashed border-sky-600/60 animate-spin" />
             </div>
           )}
         </div>
 
         {/* Real-time PPG Pulse Graph & Metrics */}
         <div className="space-y-4">
-          <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
-            <div className="flex items-center justify-between text-xs text-slate-400">
+          <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-3 shadow-sm">
+            <div className="flex items-center justify-between text-xs text-slate-600 font-bold">
               <span>REAL-TIME OPTICAL PPG WAVEFORM</span>
-              <span className="text-sky-400 font-mono">30 FPS</span>
+              <span className="text-[#00605b] font-mono">30 FPS</span>
             </div>
-            <canvas ref={chartCanvasRef} width={400} height={120} className="w-full h-[120px] rounded-lg block" />
+            <canvas ref={chartCanvasRef} width={400} height={120} className="w-full h-[120px] rounded-xl block border border-slate-200" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-              <div className="text-[10px] text-slate-400 uppercase tracking-wider">Estimated Pulse</div>
-              <div className="text-2xl font-bold font-mono text-sky-400 mt-1">
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl shadow-sm">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-extrabold">Estimated Pulse</div>
+              <div className="text-2xl font-black font-mono text-[#00605b] mt-1">
                 {estimatedBpm ? `${estimatedBpm} BPM` : "-- BPM"}
               </div>
             </div>
-            <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-              <div className="text-[10px] text-slate-400 uppercase tracking-wider">Scan Progress</div>
-              <div className="text-2xl font-bold font-mono text-white mt-1">
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl shadow-sm">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-extrabold">Scan Progress</div>
+              <div className="text-2xl font-black font-mono text-slate-900 mt-1">
                 {scanSeconds}s / 10s
               </div>
             </div>
@@ -334,14 +334,14 @@ export const WebcamPPGScanner: React.FC<WebcamPPGScannerProps> = ({
               {!isScanning ? (
                 <button
                   onClick={startScan}
-                  className="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-sky-950 transition-all"
+                  className="w-full py-3 bg-[#00605b] hover:bg-[#147a74] text-white rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 shadow-md shadow-teal-950/20 transition-all"
                 >
                   <Play className="w-4 h-4 fill-white" /> Start 10s Optical Scan & Analyze
                 </button>
               ) : (
                 <button
                   onClick={() => setIsScanning(false)}
-                  className="w-full py-3 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm transition-all"
                 >
                   <Square className="w-4 h-4 fill-white" /> Stop Scan
                 </button>
