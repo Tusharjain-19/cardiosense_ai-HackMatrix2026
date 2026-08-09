@@ -1,6 +1,6 @@
 <div align="center">
   
-  <img src="https://raw.githubusercontent.com/tusharjain/cardiosense-ai/main/frontend/public/favicon.ico" alt="Cardiosense AI Logo" width="120" />
+  <img src="frontend/public/favicon.ico" alt="Cardiosense AI Logo" width="120" />
 
   # Cardiosense AI
   **Clinical Cardiac Signal Screening & Explainability Platform**
@@ -52,12 +52,10 @@
 
 ## 🤝 The Team
 
-We are a dedicated team bridging the gap between advanced artificial intelligence and accessible healthcare.
-
-| Name | Role | Responsibilities |
-| :--- | :--- | :--- |
-| **Niranjan K** | **Head of Technology (Backend)** | Architected the core API infrastructure in FastAPI, engineered the data processing pipelines for raw ECG/PPG signals, and successfully integrated the Deep Learning models to provide fast, reliable clinical inference. |
-| **Tushar Jain** | **Frontend Architect & UI Engineer** | Spearheaded the client-side development in Next.js/React. Designed the highly interactive medical dashboards, explainable AI visualizations, and the robust native multi-language PDF clinical report generator. |
+| Name | Role |
+| :--- | :--- |
+| **Niranjan K** | Head of Tech (Backend) |
+| **Tushar Jain** | Assistant (Frontend) |
 
 ---
 
