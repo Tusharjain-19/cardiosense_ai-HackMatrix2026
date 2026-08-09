@@ -33,18 +33,41 @@
 
 ## 💡 Solution Overview
 
-**CardioSense AI** bridges the gap between raw cardiac signals and clinical decisions by providing a multi-modal, explainable AI screening platform that works with standard ECGs, optical PPG sensors, and hospital machinery.
+**CardioSense AI** bridges the gap between raw cardiac signals and clinical decisions by providing a multi-modal, explainable AI screening platform that works with standard ECGs, optical PPG sensors, and hospital hardware.
 
-### 🌟 Key Solution Features:
+---
 
-* **⚡ Deep 1D-CNN AI Classifier**: Instantly stratifies cardiac signals into *Normal Sinus Rhythm*, *Bradycardia*, *Tachycardia*, and *Arrhythmias* with confidence scores and Signal Quality Index (SQI).
-* **🧠 Explainable AI (XAI) Saliency Maps**: Uses gradient-based saliency mapping to visually highlight the exact QRS/ST segments of the cardiac waveform that drove the AI prediction.
-* **🏥 Hospital Device Direct Link (Web Serial API)**: Connects directly to hospital ECG equipment (AD8232 / Arduino / Serial COM ports) with a 250Hz real-time digital oscilloscope stream & cardiac sound monitor.
-* **👨‍⚕️ Doctor Triage Workstation**: Multi-patient triage dashboard for healthcare professionals with 1-click **Approve AI** verification and clinical review notes.
-* **📊 PhysioNet Clinical Trial Data Exporter**: Anonymizes patient records (`SUBJ_XXXXXX`) and exports standardized CSV/JSON datasets with SQI quality metrics for medical research.
-* **🎛️ Raw vs Butterworth Filtered DSP Toggle**: Interactive waveform chart allowing clinicians to switch between raw noisy signals and 4th-order Butterworth bandpass filtered outputs.
-* **🗣️ Voice Summary Reader**: Integrates Web Speech API for automated audio readout of diagnostic reports.
-* **📄 Multi-Language PDF Reports**: Formal PDF report generation supporting 7 regional languages (English, Hindi, Tamil, Telugu, Gujarati, Marathi, Bengali).
+## 🌟 Key Platform Features
+
+### 1. ⚡ Deep 1D-CNN AI Classification Engine
+* Classifies cardiac signals into **Normal Sinus Rhythm**, **Bradycardia**, **Tachycardia**, and **Arrhythmias** with class confidence scores and Signal Quality Index (SQI).
+* Powered by PyTorch 1D Convolutional Neural Network trained on PhysioNet WFDB benchmark datasets (MIT-BIH Arrhythmia Records 100, 101, 106, 200, 203).
+
+### 2. 🧠 Explainable AI (XAI) Saliency Mapping
+* Uses gradient-based saliency mapping to visually highlight the exact QRS/ST segments of the cardiac waveform that drove the AI prediction.
+* Displays precise attention timeframes (e.g. `2.40s - 3.20s`) and clinical feature descriptions.
+
+### 3. 🌐 Multilingual Support (8 Indian Regional Languages)
+* Full real-time UI translation and PDF export support across 8 languages:
+  * **English**, **Hindi (हिन्दी)**, **Tamil (தமிழ்)**, **Telugu (తెలుగు)**, **Gujarati (ગુજરાતી)**, **Marathi (मराठी)**, **Bengali (বাংলা)**, and **Kannada (ಕನ್ನಡ)**.
+
+### 4. 📄 2-Page Clinical PDF Screening Generator
+* Generates 100% Light Mode clinical hospital screening reports:
+  * **Page 1:** Patient Demographics, Vitals, SQI Metrics, AI Classification, Class Probabilities %, and XAI Saliency Window.
+  * **Page 2:** Full 10-second High-Resolution Waveform Graph, 7 Spacious Physician Handwritten Remarks Lines (`Line 1` to `Line 7`), Doctor Signature & Hospital Stamp Box, and Product Overview & Regulatory Warning Footer.
+
+### 5. 🏥 Hospital Device Link (Web Serial API Oscilloscope)
+* Connects directly to hardware ECG devices (AD8232 / Arduino / COM serial ports) via browser Web Serial API.
+* Real-time 250 Hz digital oscilloscope stream with cardiac sound monitor and simulator mode.
+
+### 6. 👨‍⚕️ Doctor Triage Workstation
+* Multi-patient triage portal for physicians with 1-click **Approve AI** signature and clinical review note attachment.
+
+### 7. 📊 PhysioNet Clinical Trial Exporter
+* Anonymizes patient records (`SUBJ_XXXXXX`) and exports standardized CSV/JSON research datasets with SQI metrics.
+
+### 8. 🎛️ Butterworth Bandpass DSP Filter Toggle
+* Signal processing pipeline with 4th-order Butterworth bandpass filter (0.5 Hz – 40 Hz) and R-peak detection.
 
 ---
 
@@ -61,7 +84,7 @@
 | :--- | :--- |
 | **Frontend Framework** | **Next.js 14 (App Router)**, **React 18**, **TypeScript** |
 | **Styling & UI** | **Tailwind CSS**, **Lucide React SVG Icons**, **HTML5 Canvas 2D** |
-| **Hardware & Web APIs** | **Web Serial API** (USB/Serial ECG), **Web Speech API** (Voice Summary), **Web Audio API** (Cardiac Monitor Beep) |
+| **Hardware & Web APIs** | **Web Serial API** (USB/Serial ECG), **Web Speech API** (Voice Reader), **Web Audio API** (Cardiac Monitor Beep) |
 | **Backend API Service** | **Python 3.10+**, **FastAPI**, **Uvicorn**, **Pydantic v2** |
 | **Machine Learning & DSP**| **PyTorch (1D-CNN)**, **SciPy** (Butterworth Filter & R-Peak Detection), **NumPy** |
 | **Database & Auth** | **SQLite / SQLAlchemy ORM**, **PyJWT (JSON Web Tokens)**, **Bcrypt** |
