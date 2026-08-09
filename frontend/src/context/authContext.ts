@@ -14,16 +14,38 @@ interface AuthStore {
   switchRole: (role: UserRole) => void
 }
 
+const getInitialUser = (): User => {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem('cardioai_user')
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        if (parsed && parsed.name) return parsed
+      }
+      // Set default demo user (Rajesh Sharma) in localStorage
+      localStorage.setItem('cardioai_user', JSON.stringify(MOCK_USERS[0]))
+      return MOCK_USERS[0]
+    } catch {
+      return MOCK_USERS[0]
+    }
+  }
+  return MOCK_USERS[0]
+}
+
+const getInitialToken = (): string | null => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('token') || 'mock_token_demo'
+  }
+  return 'mock_token_demo'
+}
+
 export const useAuthStore = create<AuthStore>((set, get) => ({
-  user: typeof window !== 'undefined' && localStorage.getItem('cardioai_user')
-    ? JSON.parse(localStorage.getItem('cardioai_user') as string)
-    : null,
-  token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
+  user: getInitialUser(),
+  token: getInitialToken(),
   isLoading: false,
 
   login: async (email: string, role: UserRole = 'patient') => {
     set({ isLoading: true })
-    // Find matching mock user or build user
     const matched = MOCK_USERS.find((u) => u.email.toLowerCase() === email.toLowerCase() || u.role === role)
     const userToSet: User = matched || {
       id: `user_${Date.now()}`,
