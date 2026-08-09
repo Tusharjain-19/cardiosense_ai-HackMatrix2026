@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://cardioai:password@db:5432/cardioai
+      - MODEL_PATH=/app/models/v3/model.pth
+      - SECRET_KEY=change-this-secret
+      - DEMO_MODE=true
+    depends_on:
+      - db
+    volumes:
+      - ./models:/app/models
+      - ./storage:/app/storage
+    networks:
+      - cardioai
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=cardioai
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=cardioai
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - cardioai
+
+volumes:
+  postgres_data:
+
+networks:
+  cardioai:
+    driver: bridge
