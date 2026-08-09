@@ -152,33 +152,35 @@ function DashboardContent() {
               onClick={() => setActiveMode('standard')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'standard'
-                  ? 'bg-[#00605b] text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-[#00605b] text-white shadow-sm border border-[#004d49]'
+                  : 'text-slate-600 hover:text-[#00605b] hover:bg-slate-200/70 font-bold'
               }`}
             >
-              <Activity className="w-4 h-4 text-emerald-300" />
+              <Activity className={`w-4 h-4 ${activeMode === 'standard' ? 'text-emerald-300' : 'text-[#00605b]'}`} />
               Standard Overview
             </button>
+
             <button
               onClick={() => setActiveMode('hospital')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'hospital'
-                  ? 'bg-emerald-700 text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-[#00605b] text-white shadow-sm border border-[#004d49]'
+                  : 'text-slate-600 hover:text-[#00605b] hover:bg-slate-200/70 font-bold'
               }`}
             >
-              <Zap className="w-4 h-4 text-emerald-300 animate-pulse" />
+              <Zap className={`w-4 h-4 ${activeMode === 'hospital' ? 'text-emerald-300 animate-pulse' : 'text-emerald-600'}`} />
               Hospital Device Link (Web Serial / Oscilloscope)
             </button>
+
             <button
               onClick={() => setActiveMode('exporter')}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeMode === 'exporter'
-                  ? 'bg-indigo-700 text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-[#00605b] text-white shadow-sm border border-[#004d49]'
+                  : 'text-slate-600 hover:text-[#00605b] hover:bg-slate-200/70 font-bold'
               }`}
             >
-              <FileCheck2 className="w-4 h-4 text-indigo-200" />
+              <FileCheck2 className={`w-4 h-4 ${activeMode === 'exporter' ? 'text-emerald-300' : 'text-teal-600'}`} />
               Clinical Trial Exporter
             </button>
           </div>

@@ -84,15 +84,15 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
   };
 
   return (
-    <div className="card p-6 bg-white dark:bg-black border border-[#e7eeff] dark:border-neutral-900 rounded-2xl shadow-xl text-slate-900 dark:text-slate-100 space-y-4">
+    <div className="card p-6 bg-white dark:bg-black border border-teal-100 dark:border-neutral-900 rounded-2xl shadow-xl text-slate-900 dark:text-slate-100 space-y-4">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+        <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-[#00605b] dark:text-teal-400 font-bold">
           <Database className="w-5 h-5" />
         </div>
         <div>
           <h3 className="font-bold text-[#00605b] dark:text-white flex items-center gap-2">
             Clinical Trial Data Exporter
-            <span className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 font-mono">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-teal-100 text-[#00605b] font-extrabold border border-teal-200">
               PhysioNet Standard
             </span>
           </h3>
@@ -108,7 +108,7 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
             type="checkbox"
             checked={anonymizePatient}
             onChange={(e) => setAnonymizePatient(e.target.checked)}
-            className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-900"
+            className="rounded border-slate-300 text-[#00605b] focus:ring-[#00605b] bg-white dark:bg-slate-900"
           />
           <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1 font-semibold">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Anonymize Subject ID
@@ -120,7 +120,7 @@ export const ClinicalTrialExporter: React.FC<ClinicalTrialExporterProps> = ({
             type="checkbox"
             checked={includeMetadata}
             onChange={(e) => setIncludeMetadata(e.target.checked)}
-            className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-900"
+            className="rounded border-slate-300 text-[#00605b] focus:ring-[#00605b] bg-white dark:bg-slate-900"
           />
           <span className="text-slate-800 dark:text-slate-300 font-semibold">Include SQI & Quality Index</span>
         </label>
