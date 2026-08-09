@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import { UploadCloud, FileText, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useLanguage } from '@/context/LanguageContext'
 
 interface FileUploadProps {
   onFileSelected: (file: File) => void
@@ -9,6 +10,7 @@ interface FileUploadProps {
 }
 
 export default function FileUpload({ onFileSelected, isLoading = false }: FileUploadProps) {
+  const { t } = useLanguage()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [dragActive, setDragActive] = useState(false)
   const [error, setError] = useState('')
@@ -102,17 +104,17 @@ export default function FileUpload({ onFileSelected, isLoading = false }: FileUp
           )}
 
           <h3 className="text-base font-bold text-slate-900 mb-1">
-            {selectedFileName ? selectedFileName : 'Drag & Drop ECG or PPG Recording'}
+            {selectedFileName ? selectedFileName : t('dragDropText')}
           </h3>
           
           <p className="text-xs text-slate-500 max-w-sm mb-4">
             {selectedFileName
               ? 'File validated and ready for AI signal processing.'
-              : 'or click to browse from your computer'}
+              : t('orClickBrowse')}
           </p>
 
           <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
-            <FileText className="w-3.5 h-3.5 text-blue-600" /> Supported: .CSV, .TXT, .EDF, .DAT, .HEA, .ATR (PhysioNet WFDB)
+            <FileText className="w-3.5 h-3.5 text-blue-600" /> {t('supportedFormats')}
           </span>
         </div>
       </div>

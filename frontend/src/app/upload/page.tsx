@@ -98,14 +98,14 @@ export default function UploadPage() {
         <div className="mb-8 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold rounded-full mb-3 shadow-sm">
             <UserPlus className="w-3.5 h-3.5 text-teal-600" />
-            {user?.role === 'doctor' ? 'Doctor Clinical Upload & Patient Intake' : 'Cardiac Screening & Patient Upload'}
+            {user?.role === 'doctor' ? t('doctorClinicalUpload') : t('cardiacScreeningUpload')}
           </div>
 
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
             {t('uploadNewSignal')}
           </h1>
           <p className="text-slate-600 text-sm max-w-2xl leading-relaxed">
-            Upload a single or multi-lead cardiac recording or select a pre-loaded research dataset. Attach patient details to save directly into history & doctor patient records.
+            {t('uploadSubtitle')}
           </p>
         </div>
 
@@ -131,11 +131,11 @@ export default function UploadPage() {
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-lg font-black">ECG</span>
                     <span className="text-[11px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-bold uppercase">
-                      Voltage
+                      {t('voltage')}
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 font-medium">
-                    Electrocardiogram electrical signal leads.
+                    {t('ecgDesc')}
                   </p>
                 </button>
 
@@ -151,18 +151,18 @@ export default function UploadPage() {
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-lg font-black">PPG</span>
                     <span className="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold uppercase">
-                      Optical
+                      {t('optical')}
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 font-medium">
-                    Photoplethysmogram blood pulse waves.
+                    {t('ppgDesc')}
                   </p>
                 </button>
               </div>
 
               <h2 className="text-base font-extrabold text-slate-900 mb-3 flex items-center gap-2">
                 <FileCheck className="w-5 h-5 text-teal-600" />
-                2. Choose Signal File
+                2. {t('chooseFile')}
               </h2>
 
               <FileUpload onFileSelected={handleFileSelected} isLoading={isLoading} />
@@ -171,9 +171,9 @@ export default function UploadPage() {
               <div className="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-800 flex items-center gap-1.5">
-                    <Download className="w-4 h-4 text-teal-700" /> Test Datasets & PhysioNet WFDB Files:
+                    <Download className="w-4 h-4 text-teal-700" /> {t('testDatasetsDownload')}
                   </span>
-                  <span className="text-[11px] text-slate-500 font-semibold">Click to download to PC</span>
+                  <span className="text-[11px] text-slate-500 font-semibold">{t('clickToDownload')}</span>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 pt-1">
@@ -255,7 +255,7 @@ export default function UploadPage() {
                 ) : (
                   <>
                     <Play className="w-5 h-5 fill-white" />
-                    Enter Patient Details & Analyze Recording
+                    {t('enterPatientDetails')}
                   </>
                 )}
               </button>
@@ -270,13 +270,13 @@ export default function UploadPage() {
                   <Sparkles className="w-5 h-5 text-teal-700" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-base text-slate-900">Instant Test Datasets</h3>
-                  <p className="text-xs text-slate-600 font-semibold">Pre-loaded research ECG/PPG recordings</p>
+                  <h3 className="font-extrabold text-base text-slate-900">{t('instantTestDatasets')}</h3>
+                  <p className="text-xs text-slate-600 font-semibold">{t('preloadedRecordings')}</p>
                 </div>
               </div>
 
               <p className="text-xs text-slate-600 font-medium my-3 leading-relaxed">
-                No local ECG/PPG files on your device? Click any pre-loaded dataset below to test the platform instantly:
+                {t('noFilesHint')}
               </p>
 
               <div className="space-y-3 mt-4">
