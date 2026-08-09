@@ -121,8 +121,8 @@ cardiosense_ai/
 
 | Name | Role |
 | :--- | :--- |
-| **Niranjan K** | Head of Tech (Backend) |
-| **Tushar Jain** | Assistant (Frontend) |
+| **[Niranjan K](https://github.com/Niranjan-png)** | Head of Tech (Backend) |
+| **[Tushar Jain](https://tusharjain.in)** | Assistant (Frontend) |
 
 ---
 
