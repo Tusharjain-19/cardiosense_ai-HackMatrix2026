@@ -13,10 +13,15 @@ import {
   History,
   FileText,
   Stethoscope,
-  ShieldAlert,
   AlertTriangle,
   ArrowRight,
   Sparkles,
+  Zap,
+  ShieldCheck,
+  Cpu,
+  CheckCircle2,
+  FileCheck2,
+  Activity,
 } from 'lucide-react'
 
 export default function DashboardPage() {
@@ -82,138 +87,214 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="container-main">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                {t('welcomeBack')}, {user?.name}!
-              </h1>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 capitalize">
-                {user?.role} Mode
-              </span>
-            </div>
-            <p className="text-slate-600 text-sm">
-              Continuous cardiac signal screening, explainability insights, and health tracking.
-            </p>
-          </div>
+      <div className="container-main min-h-[calc(100vh-5rem)] flex flex-col justify-between py-8 space-y-10">
+        <div className="space-y-8">
+          {/* Header Banner */}
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-8 md:p-10 shadow-xl border border-slate-800">
+            <div className="absolute right-0 top-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute left-1/3 bottom-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="flex items-center gap-3">
-            <Link href="/upload" className="btn-primary">
-              <UploadCloud className="w-4 h-4" /> + {t('uploadNewSignal')}
-            </Link>
-          </div>
-        </div>
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-2xl">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                    <Sparkles className="w-3.5 h-3.5" /> Clinical Cardiac Screening
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 capitalize">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> {user?.role || 'patient'} Portal Active
+                  </span>
+                </div>
 
-        {/* Quick Action Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <Link
-            href="/upload"
-            className="card hover:shadow-lg transition-all border-l-4 border-l-blue-600 flex items-center justify-between group"
-          >
-            <div>
-              <p className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
-                {t('uploadNewSignal')}
-              </p>
-              <p className="text-xs text-slate-500">Analyze CSV, TXT, EDF signal files</p>
-            </div>
-            <span className="p-2.5 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
-              <UploadCloud className="w-5 h-5" />
-            </span>
-          </Link>
+                <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+                  {t('welcomeBack')}, {user?.name || 'User'}!
+                </h1>
 
-          <Link
-            href="/history"
-            className="card hover:shadow-lg transition-all border-l-4 border-l-emerald-600 flex items-center justify-between group"
-          >
-            <div>
-              <p className="font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors">
-                {t('historyTrends')}
-              </p>
-              <p className="text-xs text-slate-500">Track heart rate & AI confidence</p>
-            </div>
-            <span className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-              <History className="w-5 h-5" />
-            </span>
-          </Link>
-
-          {user?.role === 'doctor' ? (
-            <Link
-              href="/doctor/patients"
-              className="card hover:shadow-lg transition-all border-l-4 border-l-purple-600 flex items-center justify-between group"
-            >
-              <div>
-                <p className="font-semibold text-slate-900 group-hover:text-purple-600 transition-colors">
-                  Doctor Patient Portal
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Real-time electrophysiological (ECG) and optical (PPG) screening powered by 1D-CNN deep learning with saliency Explainable AI (XAI) overlays.
                 </p>
-                <p className="text-xs text-slate-500">Review patient recordings</p>
               </div>
-              <span className="p-2.5 rounded-xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all">
-                <Stethoscope className="w-5 h-5" />
+
+              <div className="flex items-center gap-3 shrink-0">
+                <Link
+                  href="/upload"
+                  className="btn-primary bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 transition-all flex items-center gap-2"
+                >
+                  <UploadCloud className="w-5 h-5" /> + {t('uploadNewSignal')}
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Action Bar */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <Link
+              href="/upload"
+              className="card p-6 hover:shadow-xl transition-all duration-300 border-l-4 border-l-blue-600 flex items-center justify-between group bg-white hover:-translate-y-1"
+            >
+              <div className="space-y-1">
+                <p className="font-bold text-slate-900 text-base group-hover:text-blue-600 transition-colors">
+                  {t('uploadNewSignal')}
+                </p>
+                <p className="text-xs text-slate-500">Analyze CSV, TXT, EDF clinical signals</p>
+              </div>
+              <span className="p-3 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                <UploadCloud className="w-6 h-6" />
               </span>
             </Link>
-          ) : (
+
             <Link
               href="/history"
-              className="card hover:shadow-lg transition-all border-l-4 border-l-amber-600 flex items-center justify-between group"
+              className="card p-6 hover:shadow-xl transition-all duration-300 border-l-4 border-l-emerald-600 flex items-center justify-between group bg-white hover:-translate-y-1"
             >
-              <div>
-                <p className="font-semibold text-slate-900 group-hover:text-amber-600 transition-colors">
-                  {t('screeningReports')}
+              <div className="space-y-1">
+                <p className="font-bold text-slate-900 text-base group-hover:text-emerald-600 transition-colors">
+                  {t('historyTrends')}
                 </p>
-                <p className="text-xs text-slate-500">Download formatted PDF reports</p>
+                <p className="text-xs text-slate-500">Track heart rate & AI confidence history</p>
               </div>
-              <span className="p-2.5 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all">
-                <FileText className="w-5 h-5" />
+              <span className="p-3 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                <History className="w-6 h-6" />
               </span>
             </Link>
-          )}
-        </div>
 
-        {/* Smart Alerts Banner if any exist */}
-        {alerts.length > 0 && (
-          <div className="mb-8 card border-l-4 border-l-amber-500 bg-amber-50/50">
-            <div className="flex items-center gap-2 mb-3">
-              <AlertTriangle className="w-5 h-5 text-amber-600" />
-              <h3 className="font-bold text-slate-900 text-sm">
-                Smart Alerts ({alerts.length})
-              </h3>
-            </div>
-            <div className="space-y-2">
-              {alerts.slice(0, 2).map((alt) => (
-                <div
-                  key={alt.id}
-                  className="bg-white p-3 rounded-lg border border-amber-200 flex items-center justify-between text-xs"
-                >
-                  <span className="text-slate-800">{alt.message}</span>
-                  <Link
-                    href={`/analysis/${alt.analysisId}`}
-                    className="text-amber-700 font-semibold hover:underline flex items-center gap-1 shrink-0 ml-2"
-                  >
-                    Review <ArrowRight className="w-3 h-3" />
-                  </Link>
+            {user?.role === 'doctor' ? (
+              <Link
+                href="/doctor/patients"
+                className="card p-6 hover:shadow-xl transition-all duration-300 border-l-4 border-l-purple-600 flex items-center justify-between group bg-white hover:-translate-y-1"
+              >
+                <div className="space-y-1">
+                  <p className="font-bold text-slate-900 text-base group-hover:text-purple-600 transition-colors">
+                    Doctor Patient Portal
+                  </p>
+                  <p className="text-xs text-slate-500">Review patient cohorts & submitted notes</p>
                 </div>
-              ))}
+                <span className="p-3 rounded-xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-sm">
+                  <Stethoscope className="w-6 h-6" />
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/history"
+                className="card p-6 hover:shadow-xl transition-all duration-300 border-l-4 border-l-amber-600 flex items-center justify-between group bg-white hover:-translate-y-1"
+              >
+                <div className="space-y-1">
+                  <p className="font-bold text-slate-900 text-base group-hover:text-amber-600 transition-colors">
+                    {t('screeningReports')}
+                  </p>
+                  <p className="text-xs text-slate-500">Download formatted PDF reports (i18n)</p>
+                </div>
+                <span className="p-3 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
+                  <FileText className="w-6 h-6" />
+                </span>
+              </Link>
+            )}
+          </div>
+
+          {/* Smart Alerts Banner if any exist */}
+          {alerts.length > 0 && (
+            <div className="card p-6 border-l-4 border-l-amber-500 bg-gradient-to-r from-amber-50/80 to-white">
+              <div className="flex items-center gap-2 mb-3">
+                <AlertTriangle className="w-5 h-5 text-amber-600" />
+                <h3 className="font-bold text-slate-900 text-sm">
+                  Smart System Alerts ({alerts.length})
+                </h3>
+              </div>
+              <div className="space-y-2">
+                {alerts.slice(0, 2).map((alt) => (
+                  <div
+                    key={alt.id}
+                    className="bg-white p-3.5 rounded-xl border border-amber-200 flex items-center justify-between text-xs shadow-sm"
+                  >
+                    <span className="text-slate-800 font-medium">{alt.message}</span>
+                    <Link
+                      href={`/analysis/${alt.analysisId}`}
+                      className="text-amber-700 font-bold hover:underline flex items-center gap-1 shrink-0 ml-3"
+                    >
+                      Review Analysis <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Dashboard Statistics Component */}
+          {isLoading ? (
+            <div className="text-center py-20 card bg-white">
+              <Sparkles className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
+              <p className="text-slate-600 font-medium text-sm">Loading screening statistics & history...</p>
+            </div>
+          ) : (
+            <DashboardStats
+              totalAnalyses={analyses.length}
+              normalCount={normalCount}
+              reviewCount={reviewCount}
+              poorQualityCount={poorQualityCount}
+              latestAnalysis={latestAnalysis}
+            />
+          )}
+
+          {/* Clinical Workflow & System Capabilities Highlights */}
+          <div className="pt-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+                  Clinical Capabilities & AI Architecture
+                </h2>
+                <p className="text-xs text-slate-500">
+                  End-to-end electrophysiological analysis, explainability models, and patient report export.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="card p-6 bg-gradient-to-br from-white via-slate-50 to-blue-50/50 border border-slate-200 hover:border-blue-300 transition-all">
+                <div className="p-3 rounded-xl bg-blue-100 text-blue-700 w-fit mb-4">
+                  <Cpu className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 text-base mb-1">
+                  1D-CNN Deep Learning
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  Bandpass filtered 0.5–100Hz 1D Convolutional Neural Network trained on 3,600-sample windows for automated cardiac rhythm classification.
+                </p>
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-blue-700">
+                  <Zap className="w-3.5 h-3.5" /> Real-time Inference (&lt;2.0s)
+                </div>
+              </div>
+
+              <div className="card p-6 bg-gradient-to-br from-white via-slate-50 to-emerald-50/50 border border-slate-200 hover:border-emerald-300 transition-all">
+                <div className="p-3 rounded-xl bg-emerald-100 text-emerald-700 w-fit mb-4">
+                  <Activity className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 text-base mb-1">
+                  Explainable AI (XAI) Overlay
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  Gradient backpropagation saliency heatmaps highlighting exact temporal regions that influenced the deep model prediction.
+                </p>
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-emerald-700">
+                  <ShieldCheck className="w-3.5 h-3.5" /> High Clinical Transparency
+                </div>
+              </div>
+
+              <div className="card p-6 bg-gradient-to-br from-white via-slate-50 to-amber-50/50 border border-slate-200 hover:border-amber-300 transition-all">
+                <div className="p-3 rounded-xl bg-amber-100 text-amber-700 w-fit mb-4">
+                  <FileCheck2 className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 text-base mb-1">
+                  Multi-Language PDF Exports
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  Download formal clinical PDF reports formatted natively in 7 languages (English, Hindi, Tamil, Telugu, Gujarati, Marathi, Bengali).
+                </p>
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-amber-700">
+                  <FileText className="w-3.5 h-3.5" /> Native i18n Renderer
+                </div>
+              </div>
             </div>
           </div>
-        )}
-
-        {/* Dashboard Statistics */}
-        {isLoading ? (
-          <div className="text-center py-16 card">
-            <Sparkles className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-2" />
-            <p className="text-slate-500 text-sm">Loading screening stats...</p>
-          </div>
-        ) : (
-          <DashboardStats
-            totalAnalyses={analyses.length}
-            normalCount={normalCount}
-            reviewCount={reviewCount}
-            poorQualityCount={poorQualityCount}
-            latestAnalysis={latestAnalysis}
-          />
-        )}
+        </div>
       </div>
     </ProtectedRoute>
   )

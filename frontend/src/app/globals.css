@@ -56,7 +56,8 @@
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 2rem;
-    padding-bottom: 3rem;
+    padding-bottom: 3.5rem;
+    min-height: calc(100vh - 5rem);
   }
 
   @media (min-width: 640px) {
