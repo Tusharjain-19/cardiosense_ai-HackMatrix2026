@@ -213,6 +213,10 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
                 <p>{t.recNormalItem1}</p>
                 <p>{t.recNormalItem2}</p>
                 <p>{t.recNormalItem3}</p>
+                <p>{t.recNormalItem4}</p>
+                <p>{t.recNormalItem5}</p>
+                <p>{t.recNormalItem6}</p>
+                <p>{t.recNormalItem7}</p>
               </>
             ) : (
               <>
@@ -220,6 +224,9 @@ export default function ReportTemplate({ analysis, user, language }: ReportTempl
                 <p>{t.recAbnormalItem2}</p>
                 <p className="text-red-700 font-bold">{t.recAbnormalItem3}</p>
                 <p>{t.recAbnormalItem4}</p>
+                <p>{t.recAbnormalItem5}</p>
+                <p>{t.recAbnormalItem6}</p>
+                <p>{t.recAbnormalItem7}</p>
               </>
             )}
           </div>
