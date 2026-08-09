@@ -34,6 +34,73 @@
 
 ---
 
+## 🏗 Architecture & Flow
+
+```mermaid
+graph TD;
+    Client["Client (Next.js / React)"] -->|Uploads ECG/PPG CSV| API["FastAPI Backend"];
+    API -->|Data Preprocessing| ML["Deep Learning Inference Engine"];
+    ML -->|Risk Stratification & XAI Heatmaps| API;
+    API -->|JSON Response| Client;
+    
+    Client -->|Renders Interactive Charts| UI["Clinical Dashboard"];
+    UI -->|Triggers Report Generation| PDF["Local Multi-Language PDF Engine"];
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+To run Cardiosense AI locally on your machine, follow these steps.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Tusharjain-19/cardiosense_ai.git
+cd cardiosense_ai
+```
+
+### 2. Frontend Setup (Next.js)
+Ensure you have [Node.js](https://nodejs.org/) installed (v18+ recommended).
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*The frontend will start at `http://localhost:3000`.*
+
+### 3. Backend Setup (FastAPI & Python)
+Ensure you have [Python](https://www.python.org/) installed (3.10+ recommended).
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+*The backend API will start at `http://localhost:8000`.*
+
+---
+
+## 📂 Project Structure
+
+```text
+cardiosense_ai/
+├── frontend/                 # Next.js 14 App Router
+│   ├── src/
+│   │   ├── app/              # Page routes (Dashboard, Upload, Doctor Portal)
+│   │   ├── components/       # Reusable UI elements & Interactive charts
+│   │   ├── context/          # Global State & Language Localization (i18n)
+│   │   └── utils/            # Native PDF generation engine & utilities
+│   └── public/               # Static assets & Sample clinical recordings
+│
+├── backend/                  # FastAPI Python Server
+│   ├── main.py               # Core API routing
+│   └── requirements.txt      # Python dependencies
+└── README.md
+```
+
+---
+
 ## 🛠️ Technology Stack
 
 ### Frontend Architecture
