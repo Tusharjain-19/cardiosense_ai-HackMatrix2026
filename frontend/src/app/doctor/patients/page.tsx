@@ -188,9 +188,9 @@ export default function DoctorPatientsPage() {
                         </Link>
                         <Link
                           href={`/doctor/review/${analysis.id}`}
-                          className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition-colors"
+                          className="px-3 py-1.5 bg-[#00605b] hover:bg-[#147a74] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 transition-colors"
                         >
-                          <Eye className="w-3.5 h-3.5" /> Clinical Review
+                          <Eye className="w-3.5 h-3.5" /> Clinical Review & Remarks
                         </Link>
                       </div>
                     </td>

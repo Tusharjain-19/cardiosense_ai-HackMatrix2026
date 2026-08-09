@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import Link from 'next/link'
 import { Activity, ArrowLeft, Cpu, ShieldCheck, FileText, Zap, Heart, Github } from 'lucide-react'

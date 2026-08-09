@@ -43,14 +43,10 @@ export default function Navigation() {
 
   if (!mounted || !user || pathname === '/login' || pathname === '/signup') return null
 
-  const handleLogout = async () => {
-    setIsLoggingOut(true)
-    const toastId = toast.loading('Signing out securely...')
-    // Small artificial delay gives instant visual feedback before the router heavily transitions
-    await new Promise(r => setTimeout(r, 300))
+  const handleLogout = () => {
     logout()
-    toast.dismiss(toastId)
-    router.push('/login')
+    toast.success('Logged out successfully')
+    router.replace('/login')
   }
 
   const isActive = (path: string) => pathname === path

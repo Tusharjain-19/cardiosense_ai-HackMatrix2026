@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import Link from 'next/link'
 import { FileText, ArrowLeft, AlertTriangle, ShieldCheck, Scale, CheckCircle2 } from 'lucide-react'

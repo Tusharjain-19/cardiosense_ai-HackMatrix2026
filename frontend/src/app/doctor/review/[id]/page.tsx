@@ -216,24 +216,24 @@ export default function DoctorReviewPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-              Physician Clinical Notes & Recommendations:
+            <label className="block text-xs font-bold text-[#00605b] uppercase mb-1">
+              Physician Clinical Remarks & Patient Recommendations:
             </label>
             <textarea
               value={clinicalNotes}
               onChange={(e) => setClinicalNotes(e.target.value)}
               rows={4}
-              placeholder="Enter clinical observations, recommendations, or patient guidance..."
-              className="input-field text-xs"
+              placeholder="Enter clinical remarks, diagnostic observations, or patient guidance..."
+              className="input-field text-xs rounded-2xl"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSaving}
-            className="w-full btn-primary bg-emerald-600 hover:bg-emerald-700 py-3 font-bold text-xs shadow-lg shadow-emerald-600/30"
+            className="w-full btn-primary bg-[#00605b] hover:bg-[#147a74] py-3.5 rounded-full font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2"
           >
-            {isSaving ? 'Saving Review...' : 'Save Clinical Assessment'} <Save className="w-4 h-4" />
+            {isSaving ? 'Updating Remarks...' : 'Save & Update Clinical Remarks'} <Save className="w-4 h-4" />
           </button>
         </form>
       </div>
