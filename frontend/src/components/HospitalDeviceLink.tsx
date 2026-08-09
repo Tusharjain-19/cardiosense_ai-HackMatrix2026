@@ -389,21 +389,21 @@ export const HospitalDeviceLink: React.FC<HospitalDeviceLinkProps> = ({
   };
 
   return (
-    <div className="card p-6 bg-white dark:bg-black border border-[#e7eeff] dark:border-neutral-900 rounded-2xl shadow-xl text-slate-900 dark:text-slate-100 space-y-6">
+    <div className="card p-6 bg-white border border-[#e5e7eb] rounded-2xl shadow-sm text-[#111827] space-y-6">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e5e7eb] pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-            <Tv className="w-6 h-6 animate-pulse" />
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[#00605b]">
+            <Tv className="w-6 h-6 animate-pulse text-[#00605b]" />
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-[#00605b] dark:text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-[#00605b] flex items-center gap-2">
               Hospital Device Direct Link
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-[#00605b] border border-emerald-200">
                 Hospital Mode
               </span>
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-xs text-slate-500 font-medium">
               Direct USB/Serial COM link & 250Hz Real-Time Oscilloscope Stream
             </p>
           </div>
