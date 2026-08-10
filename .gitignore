@@ -6,6 +6,15 @@
 .env.production.local
 *.env
 
+# Video Files, Video Making Scripts & Heavy Media Assets
+raw_video/
+video/
+temp_audio*/
+scripts/
+*.mp4
+*.mp3
+*.wav
+
 # Dependencies
 node_modules/
 .pnpm-store/
