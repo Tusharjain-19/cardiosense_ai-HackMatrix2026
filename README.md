@@ -82,6 +82,15 @@
 
 ---
 
+## 📚 Master System Documentation
+
+Access the complete 12-feature clinical platform specification, 4-tier architecture breakdown, accuracy metrics, and India institutional market strategy:
+
+* 📄 **PDF Format:** [📘 View Master Technical Documentation (PDF)](Documentation.pdf)
+* 📝 **Word DOCX Format:** [📙 View Master Technical Documentation (DOCX)](Documentation.docx)
+
+---
+
 ## 🛠️ Technology Stack
 
 | Layer | Technologies Used |
