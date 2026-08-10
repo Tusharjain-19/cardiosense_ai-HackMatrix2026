@@ -88,6 +88,7 @@ Access the complete 12-feature clinical platform specification, 4-tier architect
 
 * 📄 **PDF Format:** [📘 View Master Technical Documentation (PDF)](Documentation.pdf)
 * 📝 **Word DOCX Format:** [📙 View Master Technical Documentation (DOCX)](Documentation.docx)
+* 🌐 **Google Drive Link:** [📄 View Master Documentation on Google Drive](https://drive.google.com/file/d/1OhtLRVQYypcriQxbN8_DWREbVvi5-wZ6/view?usp=sharing)
 
 ---
 
