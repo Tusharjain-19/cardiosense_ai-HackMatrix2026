@@ -103,7 +103,7 @@ export default function Navigation() {
                     }`}
                   >
                     <ScanLine className="w-4 h-4 text-rose-500 shrink-0" />
-                    Live Scanner
+                    {t('liveScanner')}
                   </Link>
 
                   <Link
@@ -111,7 +111,7 @@ export default function Navigation() {
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200`}
                   >
                     <Activity className="w-4 h-4 text-emerald-600 shrink-0 animate-pulse" />
-                    Hospital Mode
+                    {t('hospitalMode')}
                   </Link>
 
                   <Link
@@ -164,7 +164,7 @@ export default function Navigation() {
                     }`}
                   >
                     <ScanLine className="w-4 h-4 text-rose-500 shrink-0" />
-                    Live Scanner
+                    {t('liveScanner')}
                   </Link>
 
                   <Link
@@ -311,7 +311,7 @@ export default function Navigation() {
                     className="w-full text-left px-4 py-2 text-xs font-bold text-[#00605b] hover:bg-teal-50 flex items-center gap-2 border-b border-slate-100"
                   >
                     <History className="w-4 h-4 text-[#00605b]" />
-                    <span>Screening Records History</span>
+                    <span>{t('screeningRecordsHistory')}</span>
                   </Link>
 
                   <button
@@ -322,7 +322,7 @@ export default function Navigation() {
                     className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-2"
                   >
                     <Settings className="w-4 h-4 text-teal-700" />
-                    Settings & Profile
+                    {t('settingsProfile')}
                   </button>
 
                   <button
@@ -331,7 +331,7 @@ export default function Navigation() {
                     className="w-full text-left px-4 py-2 text-xs font-bold text-red-600 hover:bg-red-50 flex items-center gap-2 border-t border-slate-100"
                   >
                     <LogOut className="w-4 h-4" />
-                    {isLoggingOut ? 'Signing out...' : t('logout')}
+                    {isLoggingOut ? t('signingOut') : t('logout')}
                   </button>
                 </div>
               )}
@@ -388,7 +388,7 @@ export default function Navigation() {
                   onClick={() => setMenuOpen(false)}
                   className="block px-3 py-2 rounded-lg text-rose-700 font-bold hover:bg-rose-50 text-xs"
                 >
-                  Live Heart Scanner
+                  {t('liveScanner')}
                 </Link>
                 <Link
                   href="/history"
@@ -454,7 +454,7 @@ export default function Navigation() {
             className="w-full mt-2 text-left px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 rounded-lg flex items-center gap-2 text-xs"
           >
             <Settings className="w-4 h-4 text-teal-700" />
-            Settings & Profile
+            {t('settingsProfile')}
           </button>
 
           <button
@@ -463,7 +463,7 @@ export default function Navigation() {
             className="w-full text-left px-3 py-2 text-red-600 font-medium hover:bg-red-50 rounded-lg flex items-center gap-2 text-xs"
           >
             <LogOut className="w-4 h-4" />
-            {isLoggingOut ? 'Signing out...' : t('logout')}
+            {isLoggingOut ? t('signingOut') : t('logout')}
           </button>
         </div>
       )}

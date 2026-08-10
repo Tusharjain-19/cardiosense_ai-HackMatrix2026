@@ -112,10 +112,10 @@ function DashboardContent() {
               <div className="space-y-3 max-w-2xl">
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#147a74]/15 text-[#00605b] border border-[#147a74]/30">
-                    <Sparkles className="w-3.5 h-3.5" /> Clinical Cardiac Screening
+                    <Sparkles className="w-3.5 h-3.5" /> {t('clinicalCardiacScreening')}
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-[#b6ebd8] text-[#3a6c5d] border border-[#9dd1bf] capitalize">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> {user?.role || 'patient'} Portal Active
+                    <CheckCircle2 className="w-3.5 h-3.5" /> {user?.role || 'patient'} {t('portalActive')}
                   </span>
                 </div>
 
@@ -124,7 +124,7 @@ function DashboardContent() {
                 </h1>
 
                 <p className="text-[#3e4947] text-sm sm:text-base leading-relaxed font-medium">
-                  Real-time electrophysiological (ECG) and optical (PPG) screening powered by 1D-CNN deep learning with saliency Explainable AI (XAI) overlays.
+                  {t('dashboardSubtitle')}
                 </p>
               </div>
 
@@ -134,7 +134,7 @@ function DashboardContent() {
                   className="px-5 py-3 rounded-xl bg-white text-[#00605b] border border-teal-200 hover:bg-teal-50 font-bold text-xs flex items-center gap-2 shadow-sm transition-all"
                 >
                   <History className="w-4 h-4 text-[#00605b]" />
-                  <span>View History Records</span>
+                  <span>{t('viewHistoryRecords')}</span>
                 </Link>
                 <Link
                   href="/upload"
@@ -157,7 +157,7 @@ function DashboardContent() {
               }`}
             >
               <Activity className={`w-4 h-4 ${activeMode === 'standard' ? 'text-emerald-300' : 'text-[#00605b]'}`} />
-              Standard Overview
+              {t('standardOverview')}
             </button>
 
             <button
@@ -169,7 +169,7 @@ function DashboardContent() {
               }`}
             >
               <Zap className={`w-4 h-4 ${activeMode === 'hospital' ? 'text-emerald-300 animate-pulse' : 'text-emerald-600'}`} />
-              Hospital Device Link (Web Serial / Oscilloscope)
+              {t('hospitalDeviceLink')}
             </button>
 
             <button
@@ -181,7 +181,7 @@ function DashboardContent() {
               }`}
             >
               <FileCheck2 className={`w-4 h-4 ${activeMode === 'exporter' ? 'text-emerald-300' : 'text-teal-600'}`} />
-              Clinical Trial Exporter
+              {t('clinicalTrialExporter')}
             </button>
           </div>
 
@@ -204,7 +204,7 @@ function DashboardContent() {
                 <p className="font-bold text-slate-900 text-base group-hover:text-blue-600 transition-colors">
                   {t('uploadNewSignal')}
                 </p>
-                <p className="text-xs text-slate-500">Analyze CSV, TXT, EDF clinical signals</p>
+                <p className="text-xs text-slate-500">{t('analyzeCsvHint')}</p>
               </div>
               <span className="p-3 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
                 <UploadCloud className="w-6 h-6" />
@@ -219,7 +219,7 @@ function DashboardContent() {
                 <p className="font-bold text-slate-900 text-base group-hover:text-emerald-600 transition-colors">
                   {t('historyTrends')}
                 </p>
-                <p className="text-xs text-slate-500">Track heart rate & AI confidence history</p>
+                <p className="text-xs text-slate-500">{t('trackHeartHistory')}</p>
               </div>
               <span className="p-3 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
                 <History className="w-6 h-6" />
@@ -233,9 +233,9 @@ function DashboardContent() {
               >
                 <div className="space-y-1">
                   <p className="font-bold text-slate-900 text-base group-hover:text-purple-600 transition-colors">
-                    Doctor Patient Portal
+                    {t('doctorPatientPortal')}
                   </p>
-                  <p className="text-xs text-slate-500">Review patient cohorts & submitted notes</p>
+                  <p className="text-xs text-slate-500">{t('reviewPatientCohorts')}</p>
                 </div>
                 <span className="p-3 rounded-xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-sm">
                   <Stethoscope className="w-6 h-6" />
@@ -250,7 +250,7 @@ function DashboardContent() {
                   <p className="font-bold text-slate-900 text-base group-hover:text-amber-600 transition-colors">
                     {t('screeningReports')}
                   </p>
-                  <p className="text-xs text-slate-500">Download formatted PDF reports (i18n)</p>
+                  <p className="text-xs text-slate-500">{t('downloadPdfReports')}</p>
                 </div>
                 <span className="p-3 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
                   <FileText className="w-6 h-6" />
@@ -265,7 +265,7 @@ function DashboardContent() {
               <div className="flex items-center gap-2 mb-3">
                 <AlertTriangle className="w-5 h-5 text-amber-600" />
                 <h3 className="font-bold text-slate-900 text-sm">
-                  Smart System Alerts ({alerts.length})
+                  {t('smartSystemAlerts')} ({alerts.length})
                 </h3>
               </div>
               <div className="space-y-2">
@@ -279,7 +279,7 @@ function DashboardContent() {
                       href={`/analysis/${alt.analysisId}`}
                       className="text-amber-700 font-bold hover:underline flex items-center gap-1 shrink-0 ml-3"
                     >
-                      Review Analysis <ArrowRight className="w-3.5 h-3.5" />
+                      {t('reviewAnalysis')} <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 ))}
@@ -291,7 +291,7 @@ function DashboardContent() {
           {isLoading ? (
             <div className="text-center py-20 card bg-white">
               <Sparkles className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
-              <p className="text-slate-600 font-medium text-sm">Loading screening statistics & history...</p>
+              <p className="text-slate-600 font-medium text-sm">{t('loadingStats')}</p>
             </div>
           ) : (
             <DashboardStats
@@ -308,10 +308,10 @@ function DashboardContent() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                  Clinical Capabilities & AI Architecture
+                  {t('clinicalCapabilities')}
                 </h2>
                 <p className="text-xs text-slate-500">
-                  End-to-end electrophysiological analysis, explainability models, and patient report export.
+                  {t('clinicalCapabilitiesSubtitle')}
                 </p>
               </div>
             </div>
@@ -322,13 +322,13 @@ function DashboardContent() {
                   <Cpu className="w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-base mb-1">
-                  1D-CNN Deep Learning
+                  {t('cnnTitle')}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                  Bandpass filtered 0.5–100Hz 1D Convolutional Neural Network trained on 3,600-sample windows for automated cardiac rhythm classification.
+                  {t('cnnDesc')}
                 </p>
                 <div className="flex items-center gap-2 text-[11px] font-semibold text-blue-700">
-                  <Zap className="w-3.5 h-3.5" /> Real-time Inference (&lt;2.0s)
+                  <Zap className="w-3.5 h-3.5" /> {t('cnnBadge')}
                 </div>
               </div>
 
@@ -337,13 +337,13 @@ function DashboardContent() {
                   <Activity className="w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-base mb-1">
-                  Explainable AI (XAI) Overlay
+                  {t('xaiTitle')}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                  Gradient backpropagation saliency heatmaps highlighting exact temporal regions that influenced the deep model prediction.
+                  {t('xaiDesc')}
                 </p>
                 <div className="flex items-center gap-2 text-[11px] font-semibold text-emerald-700">
-                  <ShieldCheck className="w-3.5 h-3.5" /> High Clinical Transparency
+                  <ShieldCheck className="w-3.5 h-3.5" /> {t('xaiBadge')}
                 </div>
               </div>
 
@@ -352,13 +352,13 @@ function DashboardContent() {
                   <FileCheck2 className="w-6 h-6" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-base mb-1">
-                  Multi-Language PDF Exports
+                  {t('pdfTitle')}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                  Download formal clinical PDF reports formatted natively in 7 languages (English, Hindi, Tamil, Telugu, Gujarati, Marathi, Bengali).
+                  {t('pdfDesc')}
                 </p>
                 <div className="flex items-center gap-2 text-[11px] font-semibold text-amber-700">
-                  <FileText className="w-3.5 h-3.5" /> Native i18n Renderer
+                  <FileText className="w-3.5 h-3.5" /> {t('pdfBadge')}
                 </div>
               </div>
             </div>
@@ -371,7 +371,7 @@ function DashboardContent() {
 
 export default function DashboardPage() {
   return (
-    <Suspense fallback={<div className="p-10 text-center text-slate-500">Loading Dashboard...</div>}>
+    <Suspense fallback={<div className="p-10 text-center text-slate-500">Loading...</div>}>
       <DashboardContent />
     </Suspense>
   )
